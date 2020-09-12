@@ -1,0 +1,67 @@
+/*C1*/SET SCHEMA SYSTEM_LOBS
+INSERT INTO BLOCKS VALUES(0,2147483647,0)
+COMMIT
+/*C3*/SET SCHEMA PUBLIC
+drop table if exists Carte CASCADE 
+drop table if exists Fiche CASCADE 
+drop table if exists Fiche_Tag CASCADE 
+drop table if exists Kanban CASCADE 
+drop table if exists Section CASCADE 
+drop table if exists Tag CASCADE 
+drop table if exists Utilisateur CASCADE 
+drop sequence hibernate_sequence if exists
+create sequence hibernate_sequence start with 1 increment by 1
+create table Carte (id bigint not null, fiche_id bigint, section_id bigint, primary key (id))
+create table Fiche (id bigint not null, dateButoire date, hashGit varchar(255), libelle varchar(255), lieu varchar(255), note varchar(255), tempsEstimation integer not null, url varchar(255), carte_id bigint, utilisateur_id bigint, primary key (id))
+create table Fiche_Tag (Fiche_id bigint not null, tags_id bigint not null)
+create table Kanban (id bigint not null, name varchar(255), primary key (id))
+create table Section (id bigint not null, name varchar(255), kanban_id bigint, primary key (id))
+create table Tag (id bigint not null, name varchar(255), primary key (id))
+create table Utilisateur (id bigint not null, name varchar(255), primary key (id))
+alter table Carte add constraint FK5w9cbapl9vx8q3h1wrc74c6h3 foreign key (fiche_id) references Fiche
+alter table Carte add constraint FK1efuvbhgdip2ke244os3ik15q foreign key (section_id) references Section
+alter table Fiche add constraint FKhxnt51ufb549tb6xxciqblnxp foreign key (carte_id) references Carte
+alter table Fiche add constraint FK4qdc5jonr42qu3t5qnvdrl5be foreign key (utilisateur_id) references Utilisateur
+alter table Fiche_Tag add constraint FK4cuhkc7msctu5jfw8hgyjemul foreign key (tags_id) references Tag
+alter table Fiche_Tag add constraint FK7a4bdutf6boh0oxba3tsnhxu7 foreign key (Fiche_id) references Fiche
+alter table Section add constraint FKsfiepcu8ovasqv9j2apr1948b foreign key (kanban_id) references Kanban
+INSERT INTO KANBAN VALUES(1,'TAA')
+INSERT INTO SECTION VALUES(2,'En attente',1)
+INSERT INTO SECTION VALUES(3,'En cours',1)
+INSERT INTO SECTION VALUES(4,'R\u00e9alis\u00e9',1)
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 5
+COMMIT
+DISCONNECT
+/*C2*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
+drop table if exists Carte CASCADE 
+drop table if exists Fiche CASCADE 
+drop table if exists Fiche_Tag CASCADE 
+drop table if exists Kanban CASCADE 
+drop table if exists Section CASCADE 
+drop table if exists Tag CASCADE 
+drop table if exists Utilisateur CASCADE 
+drop sequence hibernate_sequence if exists
+create sequence hibernate_sequence start with 1 increment by 1
+create table Carte (id bigint not null, fiche_id bigint, section_id bigint, primary key (id))
+create table Fiche (id bigint not null, dateButoire date, hashGit varchar(255), libelle varchar(255), lieu varchar(255), note varchar(255), tempsEstimation integer not null, url varchar(255), carte_id bigint, utilisateur_id bigint, primary key (id))
+create table Fiche_Tag (Fiche_id bigint not null, tags_id bigint not null)
+create table Kanban (id bigint not null, name varchar(255), primary key (id))
+create table Section (id bigint not null, name varchar(255), kanban_id bigint, primary key (id))
+create table Tag (id bigint not null, name varchar(255), primary key (id))
+create table Utilisateur (id bigint not null, name varchar(255), primary key (id))
+alter table Carte add constraint FK5w9cbapl9vx8q3h1wrc74c6h3 foreign key (fiche_id) references Fiche
+alter table Carte add constraint FK1efuvbhgdip2ke244os3ik15q foreign key (section_id) references Section
+alter table Fiche add constraint FKhxnt51ufb549tb6xxciqblnxp foreign key (carte_id) references Carte
+alter table Fiche add constraint FK4qdc5jonr42qu3t5qnvdrl5be foreign key (utilisateur_id) references Utilisateur
+alter table Fiche_Tag add constraint FK4cuhkc7msctu5jfw8hgyjemul foreign key (tags_id) references Tag
+alter table Fiche_Tag add constraint FK7a4bdutf6boh0oxba3tsnhxu7 foreign key (Fiche_id) references Fiche
+alter table Section add constraint FKsfiepcu8ovasqv9j2apr1948b foreign key (kanban_id) references Kanban
+INSERT INTO KANBAN VALUES(1,'TAA')
+INSERT INTO SECTION VALUES(2,'En attente',1)
+INSERT INTO SECTION VALUES(3,'En cours',1)
+INSERT INTO SECTION VALUES(4,'R\u00e9alis\u00e9',1)
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 5
+COMMIT
+DISCONNECT
