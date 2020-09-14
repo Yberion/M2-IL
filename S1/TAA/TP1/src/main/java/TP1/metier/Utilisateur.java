@@ -1,14 +1,18 @@
-package TP1.domain;
+package TP1.metier;
+
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Utilisateur
 {
     private long id;
     private String name;
+    private List<Fiche> fiches;
     
     public Utilisateur()
     {
@@ -41,5 +45,16 @@ public class Utilisateur
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    @ManyToMany
+    public List<Fiche> getFiches()
+    {
+        return fiches;
+    }
+
+    public void setFiches(List<Fiche> fiches)
+    {
+        this.fiches = fiches;
     }
 }

@@ -1,0 +1,41 @@
+package TP1.dao;
+
+import TP1.dao.generic.AbstractJpaDao;
+import TP1.metier.Kanban;
+import TP1.metier.Section;
+
+public final class SectionDAO extends AbstractJpaDao<String, Section>
+{
+    public SectionDAO()
+    {
+        super(Section.class);
+    }
+    
+    public void createDefaultSections(long kanbanId)
+    {
+        Kanban kanban = this.entityManager.find(Kanban.class, kanbanId);
+
+        Section enAttente = new Section("En attente", kanban);
+        Section enCours = new Section("En cours", kanban);
+        Section realise = new Section("Réalisé", kanban);
+
+        kanban.getSections().add(enAttente);
+        kanban.getSections().add(enCours);
+        kanban.getSections().add(realise);
+        
+        this.saveMany(kanban.getSections());
+    }
+    
+    /*
+     * Il faudrait passer en paramètre l'id du kanban, au vu de mon implémentation actuelle
+    public Section findByName(String name)
+    {
+        return entityManager.createQuery("select e from Section as e where e.name = :name", Section.class).setParameter("name", name).getSingleResult();
+    }
+    
+    public void deleteByName(String name)
+    {
+        delete(findByName(name));
+    }
+    */
+}

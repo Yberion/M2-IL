@@ -1,5 +1,6 @@
-package TP1.domain;
+package TP1.metier;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Kanban
+public class Kanban implements Serializable
 {
+    private static final long serialVersionUID = -7571173987535309015L;
     private long id;
     private List<Section> sections;
     private String name;
@@ -21,8 +23,6 @@ public class Kanban
         super();
         this.sections = new ArrayList<>();
         this.name = "My Kanban";
-        
-        createDefaultSections();
     }
 
     public Kanban(String name)
@@ -30,23 +30,6 @@ public class Kanban
         super();
         this.sections = new ArrayList<>();
         this.name = name;
-        
-        createDefaultSections();
-    }
-    
-    private void createDefaultSections()
-    {
-        Section enAttente = new Section("En attente", this);
-        Section enCours = new Section("En cours", this);
-        Section realise = new Section("Réalisé", this);
-        
-        //enAttente.setKanban(this);
-        //enCours.setKanban(this);
-        //realise.setKanban(this);
-        
-        this.sections.add(enAttente);
-        this.sections.add(enCours);
-        this.sections.add(realise);
     }
 
     @Id
@@ -61,7 +44,7 @@ public class Kanban
         this.id = id;
     }
 
-    @OneToMany(cascade = CascadeType.PERSIST,mappedBy = "kanban")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "kanban")
     public List<Section> getSections()
     {
         return sections;

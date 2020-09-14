@@ -4,14 +4,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class EntityManagerHelper
+public final class EntityManagerHelper
 {
     private static final EntityManagerFactory emf;
     private static final ThreadLocal<EntityManager> threadLocal;
+    
     static
     {
         emf = Persistence.createEntityManagerFactory("dev");
-        threadLocal = new ThreadLocal<EntityManager>();
+        threadLocal = new ThreadLocal<>();
+    }
+
+    private EntityManagerHelper()
+    {
+        throw new IllegalStateException("Utility class");
     }
 
     public static EntityManager getEntityManager()
@@ -33,7 +39,7 @@ public class EntityManagerHelper
         if (em != null)
         {
             em.close();
-            threadLocal.set(null);
+            threadLocal.remove();
         }
     }
 

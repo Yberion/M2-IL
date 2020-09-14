@@ -1,4 +1,4 @@
-package TP1.domain;
+package TP1.metier;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class Fiche
     private long id;
     private String libelle;
     private Date dateButoire;
-    private Utilisateur utilisateur;
+    private List<Utilisateur> utilisateurs;
     // En jour
     private int tempsEstimation;
     private List<Tag> tags;
@@ -42,13 +42,13 @@ public class Fiche
         this.tags = new ArrayList<>();
     }
     
-    public Fiche(String libelle, Date dateButoire, Utilisateur utilisateur, int tempsEstimation, List<Tag> tags,
+    public Fiche(String libelle, Date dateButoire, List<Utilisateur> utilisateurs, int tempsEstimation, List<Tag> tags,
             String lieu, String url, Carte carte)
     {
         super();
         this.libelle = libelle;
         this.dateButoire = dateButoire;
-        this.utilisateur = utilisateur;
+        this.utilisateurs = utilisateurs;
         this.tempsEstimation = tempsEstimation;
         this.tags = tags;
         this.lieu = lieu;
@@ -89,15 +89,15 @@ public class Fiche
         this.dateButoire = dateButoire;
     }
 
-    @OneToOne
-    public Utilisateur getUtilisateur()
+    @ManyToMany(mappedBy = "fiches")
+    public List<Utilisateur> getUtilisateurs()
     {
-        return utilisateur;
+        return this.utilisateurs;
     }
 
-    public void setUtilisateur(Utilisateur utilisateur)
+    public void setUtilisateurs(List<Utilisateur> utilisateurs)
     {
-        this.utilisateur = utilisateur;
+        this.utilisateurs = utilisateurs;
     }
 
     public int getTempsEstimation()
@@ -110,7 +110,7 @@ public class Fiche
         this.tempsEstimation = tempsEstimation;
     }
     
-    @ManyToMany
+    @ManyToMany(mappedBy = "fiches")
     public List<Tag> getTags()
     {
         return tags;

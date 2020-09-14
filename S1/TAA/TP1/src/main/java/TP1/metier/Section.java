@@ -1,5 +1,6 @@
-package TP1.domain;
+package TP1.metier;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,8 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Section
+public class Section implements Serializable
 {
+    private static final long serialVersionUID = 6849713998981795362L;
     private long id;
     private String name;
     private Kanban kanban;

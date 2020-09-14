@@ -1,4 +1,6 @@
-package TP1.domain;
+package TP1.metier;
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,8 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Carte
+public class Carte implements Serializable
 {
+    private static final long serialVersionUID = 4289243947415248657L;
     private long id;
     private Section section;
     private Fiche fiche;

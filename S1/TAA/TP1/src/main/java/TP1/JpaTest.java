@@ -2,50 +2,33 @@ package TP1;
 
 import java.util.List;
 
-import TP1.domain.Kanban;
+import TP1.dao.KanbanDAO;
+import TP1.dao.SectionDAO;
 
 public class JpaTest
 {
     public static void main(String[] args)
     {
-        EntityManagerHelper.beginTransaction();
+        KanbanDAO kanbanDAO = new KanbanDAO();
+        SectionDAO sectionDAO = new SectionDAO();
 
         try
         {
-            createKanban();
+            List<Long> kanbanIds = kanbanDAO.createKanbans();
+            
+            for (Long id : kanbanIds)
+            {
+                sectionDAO.createDefaultSections(id);
+            }
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-        
-        EntityManagerHelper.commit();
 
-        listKanbans();
+        kanbanDAO.displayKanbans();
         
         EntityManagerHelper.closeEntityManager();
         EntityManagerHelper.closeEntityManagerFactory();
-    }
-
-    private static void createKanban()
-    {
-        int numOfKanban = EntityManagerHelper.getEntityManager().createQuery("Select a From Kanban a", Kanban.class).getResultList().size();
-
-        if (numOfKanban == 0)
-        {
-            Kanban kanban = new Kanban("TAA");
-            EntityManagerHelper.getEntityManager().persist(kanban);
-        }
-    }
-
-    private static void listKanbans()
-    {
-        List<Kanban> kanbans = EntityManagerHelper.getEntityManager().createQuery("Select a From Kanban a", Kanban.class).getResultList();
-        System.out.println("num of kanbans:" + kanbans.size());
-
-        for (Kanban next : kanbans)
-        {
-            System.out.println("next kanban: " + next.getName());
-        }
     }
 }
