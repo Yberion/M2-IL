@@ -34,6 +34,15 @@ dependencies {
 
     // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.4.21.Final'
+    
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
+    testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
+
+    // https://mvnrepository.com/artifact/org.hsqldb/hsqldb
+    compile group: 'org.hsqldb', name: 'hsqldb', version: '2.5.1'
 }
 
 application {
