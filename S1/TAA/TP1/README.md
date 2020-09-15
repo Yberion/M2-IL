@@ -13,3 +13,21 @@ Connect to the DB :
 - URL : ``jdbc:hsqldb:hsql://localhost/``
 
 To remove all existing DB remove all ``test.*`` files.
+
+### Test JPA
+
+``Run AS -> Java Application`` on the class ``JpaTest.java`` on Eclipse.
+
+It will create 3 Kanbans :
+
+- TAA1
+- TAA2
+- TAA3
+
+And create for each of them 3 sections :
+
+- En attente
+- En cours
+- Réalisé
+
+Kanbans' name will be displayed in the console.

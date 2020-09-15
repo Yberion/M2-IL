@@ -40,7 +40,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'TP1.App'
+    mainClassName = 'TP1.JpaTest'
 }
 
 test {
