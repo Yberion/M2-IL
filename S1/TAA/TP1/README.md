@@ -1,4 +1,8 @@
-### hsqldb
+# Gradle
+
+Run ``gradle build`` in a terminal.
+
+## hsqldb
 
 Download the last version here : http://hsqldb.org/ and place it under the folder ``hsqldb``.
 
@@ -16,7 +20,7 @@ To remove all existing DB remove all ``test.*`` files.
 
 ### Test JPA
 
-``Run AS -> Java Application`` on the class ``JpaTest.java`` on Eclipse.
+``Run AS -> Java Application`` on the class ``TP1/JpaTest.java`` on Eclipse.
 
 It will create 3 Kanbans :
 
