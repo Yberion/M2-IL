@@ -20,6 +20,10 @@ To remove all existing DB remove all ``test.*`` files.
 
 ## jetty
 
+It is used for the servlet implementation.
+
+I use gretty because I'm using gradle.
+
 https://plugins.gradle.org/plugin/org.gretty
 
 Doc : https://gretty-gradle-plugin.github.io/gretty-doc/
@@ -31,12 +35,16 @@ Command to start the server with gradle :
 Then check:
 
 http://localhost:8080/TP2/
+
 http://localhost:8080/TP2/myform.html
+
 http://localhost:8080/TP2/kanban/ManageKanban
 
 Press any key on the gradle terminal to stop jetty.
 
 ## jaxrs
+
+It is used to make API Rest.
 
 You need to run the hsqldb server before testing jaxrs since we're using the DAO classes from JPA.
 
@@ -57,13 +65,15 @@ Start the server and use http://localhost:8080/api/
 In Postman, simple tests :
 
 GET
-    url: http://localhost:8080/pet/1
+- url: http://localhost:8080/pet/1
 
 POST
-    url: http://localhost:8080/pet/
-    Headers:
-        Content-Type: application/json
-    Body:
+- url: http://localhost:8080/pet/
+
+Headers:
+- Content-Type: application/json
+
+Body:
 ```json
 {
     "id": 1,
@@ -74,7 +84,7 @@ POST
 
 For the Kanban part, since it uses the DAO classes we can actually get a result from the GET method.
 
-Be carefull to not request unvailable object, there isn't any protection implemented since it's not the case of the TP, this way, do not ask for Kanban ID 200 if it doesn't exist, also, do not override an existing one.
+Be carefull to not request unvailable objects, there isn't any protection implemented since it's not the case of the TP, this way, do not ask for Kanban ID 200 if it doesn't exist, also, do not override an existing one.
 
 You can test with :
 
