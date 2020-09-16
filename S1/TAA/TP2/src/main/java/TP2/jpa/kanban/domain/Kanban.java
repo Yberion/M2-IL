@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@XmlRootElement(name = "Kanban")
 public class Kanban implements Serializable
 {
     private static final long serialVersionUID = -7571173987535309015L;
@@ -38,7 +37,6 @@ public class Kanban implements Serializable
 
     @Id
     @GeneratedValue
-    @XmlElement(name = "id")
     public long getId()
     {
         return id;
@@ -50,8 +48,6 @@ public class Kanban implements Serializable
     }
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "kanban")
-    @XmlElementWrapper(name = "sections")
-    @XmlElement(name = "section")
     public List<Section> getSections()
     {
         return sections;
@@ -62,7 +58,6 @@ public class Kanban implements Serializable
         this.sections = sections;
     }
 
-    @XmlElement(name = "name")
     public String getName()
     {
         return name;

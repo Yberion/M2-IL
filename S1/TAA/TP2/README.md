@@ -52,7 +52,7 @@ Be sure to not have jetty started already.
 
 ``Run As -> Java Application`` on the class ``TP2/jaxrs/RestServer.java``.
 
-I added all XML annotations in the JPA implementation, check in the package ``TP2/jpa/kanban/domain``, I only did it for ``Kanban.java``.
+Since I only added one DTO (KanbanDTO), I didn't face the problem of cyclic reference when two classes references each other. In this case, I need to use ``@JsonManagedReference`` and ``@JsonBackReference``.
 
 ## swagger-ui
 
@@ -61,6 +61,8 @@ You can use swagger-ui to use API Rest.
 Start the server and use http://localhost:8080/api/
 
 ## Postman
+
+Don't forget to change the content type of the body response to ``TEXT`` due to ``Response.ok().entity("SUCCESS").build();`` not being a json object.
 
 In Postman, simple tests :
 
@@ -97,8 +99,7 @@ Headers:
 Body:
 ```json
 {
-    "id": 0,
-    "section": [],
+    "sections": [],
     "name": "TAA20"
 }
 ```
@@ -112,8 +113,7 @@ Headers:
 Body:
 ```json
 {
-    "id": 1,
-    "section": [],
+    "sections": [],
     "name": "TAA500"
 }
 ```
