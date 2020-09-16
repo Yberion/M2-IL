@@ -20,7 +20,11 @@ To remove all existing DB remove all ``test.*`` files.
 
 ## Spring boot
 
+You have to start the ``HSQLDB`` server (well, not needed for the first part of the TP).
+
 To start the application run ``gradle bootRun``
+
+I'm using constructors for dependencies injection instead of ``@Autowired``.
 
 ___
 

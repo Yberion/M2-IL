@@ -6,7 +6,7 @@ plugins {
 	id 'war'
 }
 
-group = 'fr.brandon'
+group = 'fr.brandon.tp3'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -27,7 +27,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'fr.brandon.tp3.Tp3Application'
+    mainClassName = 'fr.brandon.tp3.part1.Tp3Application'
 }
 
 test {
