@@ -28,6 +28,8 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import java.util.ArrayList;
@@ -51,7 +53,8 @@ import TP1.model.implementation.CamembertModelAdapter;
 import TP1.view.api.ICamembertView;
 
 // this should actually implement an ICamembertView
-public class CamembertView extends JComponent implements ICamembertView, MouseListener, MouseMotionListener, Observer
+public class CamembertView extends JComponent
+        implements ICamembertView, MouseListener, MouseMotionListener, PropertyChangeListener
 {
     private static final long serialVersionUID = -3093964322108092959L;
     static final Point2D pieCenter = new Point2D.Double(300, 300);
@@ -67,10 +70,6 @@ public class CamembertView extends JComponent implements ICamembertView, MouseLi
     ArrayList<Arc2D> selectedArcs;
     Arc2D emptyCenter;
     Arc2D center;
-    // a link to the controller interface
-    ///IController controller;
-    // a link to the Model interface 
-    //ICamembertModel model;
     double startingAngle;
     GeneralPath previous;
     GeneralPath next;
@@ -80,7 +79,7 @@ public class CamembertView extends JComponent implements ICamembertView, MouseLi
     Image offscreen;
     Font fontCenter;
     Font fontTags;
-    private ICamembertModel model;
+    private CamembertModelAdapter model;
     private ICamembertController controller;
 
     public CamembertView(CamembertModelAdapter model)
@@ -88,7 +87,8 @@ public class CamembertView extends JComponent implements ICamembertView, MouseLi
         this.model = model;
         startingAngle = 0.0;
         // reminder: we don't want the model to have an oberserver: use an adapter
-        model.addObserver(this);
+        this.model.addPropertyChangeListener(this);
+        addMouseListener(this);
         arcs = new ArrayList<Arc2D>();
         selectedArcs = new ArrayList<Arc2D>();
         setSize(600, 600);
@@ -160,6 +160,8 @@ public class CamembertView extends JComponent implements ICamembertView, MouseLi
         this.controller = controller;
     }
 
+    // Those function should be in the controller
+    
     // deselect all pieces
     public void deselectItems()
     {
@@ -171,15 +173,15 @@ public class CamembertView extends JComponent implements ICamembertView, MouseLi
     public void nextPie()
     {
         controller.setSelectedPie((controller.getSelectedPie() + 1) % model.size());
-        System.out.println("Selected pie" + controller.getSelectedPie());
+        System.out.println("Selected pie next" + controller.getSelectedPie());
         paint(getGraphics());
     }
 
     // select the previous piece of pie
     public void previousPie()
     {
-        controller.setSelectedPie((controller.getSelectedPie() - 1) % model.size());
-        System.out.println("Selected pie" + controller.getSelectedPie());
+        controller.setSelectedPie((controller.getSelectedPie() + model.size() - 1) % model.size());
+        System.out.println("Selected pie previous" + controller.getSelectedPie());
         paint(getGraphics());
     }
 
@@ -562,11 +564,10 @@ public class CamembertView extends JComponent implements ICamembertView, MouseLi
     @Override
     public void mouseClicked(MouseEvent arg0)
     {
-        // TODO Auto-generated method stub
 
         if (center.contains(arg0.getX(), arg0.getY()))
         {
-            controller.deSelect();
+            this.deselectItems();
         }
         else
         {
@@ -576,38 +577,35 @@ public class CamembertView extends JComponent implements ICamembertView, MouseLi
 
                 if (arcs.get(i).contains(arg0.getX(), arg0.getY()) && !emptyCenter.contains(arg0.getX(), arg0.getY()))
                 {
-                    controller.selectPie(i);
+                    this.selectPie(i);
                 }
             }
         }
 
         if (previous.contains(arg0.getX(), arg0.getY()))
         {
-            controller.nextPie();
+            this.nextPie();
         }
 
         if (next.contains(arg0.getX(), arg0.getY()))
         {
-            controller.previousPie();
+            this.previousPie();
         }
     }
 
     @Override
     public void mouseEntered(MouseEvent arg0)
     {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mouseExited(MouseEvent arg0)
     {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mousePressed(MouseEvent arg0)
     {
-        // TODO Auto-generated method stub
         prevPosX = arg0.getX();
         prevPosY = arg0.getY();
     }
@@ -615,14 +613,12 @@ public class CamembertView extends JComponent implements ICamembertView, MouseLi
     @Override
     public void mouseReleased(MouseEvent arg0)
     {
-        // TODO Auto-generated method stub
     }
 
     // if the user drags a pie we rotate it by a given angle 'angle1'
     @Override
     public void mouseDragged(MouseEvent e)
     {
-        // TODO Auto-generated method stub
         // difference in x from center:
         double dx = pieCenter.getX() - e.getX();
         double dy = pieCenter.getY() - e.getY();
@@ -639,13 +635,11 @@ public class CamembertView extends JComponent implements ICamembertView, MouseLi
     @Override
     public void mouseMoved(MouseEvent e)
     {
-        // TODO Auto-generated method stub
     }
 
     @Override
-    public void update(Observable arg0, Object arg1)
+    public void propertyChange(PropertyChangeEvent evt)
     {
-        // TODO Auto-generated method stub
         buildGraphics();
         paint(getGraphics());
     }

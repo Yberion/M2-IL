@@ -18,5 +18,5 @@ public interface ICamembertModel
     String getTitle(int i);
     String getDescription(int i);
     void addItem(ItemModel itemModel);
-    void RemoveItem(ItemModel itemModel);
+    void removeItem(ItemModel itemModel);
 }

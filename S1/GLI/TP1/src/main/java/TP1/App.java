@@ -4,38 +4,66 @@
 package TP1;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class App {
-    public String getGreeting() {
-        return "Hello world.";
+import TP1.controller.api.ICamembertController;
+import TP1.controller.api.ITableController;
+import TP1.controller.implementation.CamembertController;
+import TP1.controller.implementation.TableController;
+import TP1.model.implementation.CamembertModelAdapter;
+import TP1.model.implementation.ItemModel;
+import TP1.view.implementation.CamembertView;
+import TP1.view.implementation.TableView;
+
+public class App
+{
+    // this main method should actually be placed in another class (it's here just to avoid having multiple files)
+    public static void main(String[] a)
+    {
+        JFrame window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setBounds(30, 30, 400, 400);
+        // Create an instance of the model
+        CamembertModelAdapter model = new CamembertModelAdapter("Pizza");
+        // Maybe put some data in the model
+        
+        model.addItem(new ItemModel("Pâte", "Pâte épaisse", 0.84));
+        model.addItem(new ItemModel("Fromage", "Mozzarella", 1.25));
+        model.addItem(new ItemModel("Jambon", "Locale", 2.20));
+        model.addItem(new ItemModel("Sauce tomate", "Tomate du jardin", 1.20));
+        
+        // Create the controller and the view and link all together
+        ICamembertController controller = new CamembertController();
+        CamembertView view = new CamembertView(model);
+        view.setController(controller);
+        controller.setView(view);
+        
+        ITableController controllerTable = new TableController();
+        TableView viewTable = new TableView(model);
+        viewTable.setController(controllerTable);
+        controllerTable.setView(viewTable);
+        
+        // display layout
+        GridLayout layout = new GridLayout(1, 3);
+        JButton ajoutItem = new JButton("Ajout toto item");
+        ajoutItem.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                model.addItem(new ItemModel("toto", "oui", 1.0));
+            }
+        });
+        window.getContentPane().add(controller.getView());
+        window.getContentPane().add(controllerTable.getView());
+        window.getContentPane().add(ajoutItem);
+        window.setLayout(layout);
+        window.pack();
+        window.setVisible(true);
+        // window.pack();
     }
-
- // this main method should actually be placed in another class (it's here just to avoid having multiple files)
-    public static void main(String[] a) {
-    		JFrame window = new JFrame();
-    		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    		window.setBounds(30, 30, 400, 400);
-    		
-    		// Create an instance of the model
-            // Model model;
-            
-            // Maybe put some data in the model
-    		int oldFirst = 0;
-    		int oldLast = 0;
-
-    		// Create the controller and the view and link all together
-    				
-    		
-    		// display layout
-    		GridLayout layout = new GridLayout(1, 2);
-
-    		window.getContentPane().add(controller.getView());
-    		
-    		window.setLayout(layout);
-    		window.pack();
-    		window.setVisible(true);
-    		// window.pack();
-    	}
 }

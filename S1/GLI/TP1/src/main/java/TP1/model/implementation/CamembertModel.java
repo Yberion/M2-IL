@@ -5,7 +5,7 @@ import java.util.List;
 
 import TP1.model.api.ICamembertModel;
 
-public abstract class CamembertModel implements ICamembertModel
+public class CamembertModel implements ICamembertModel
 {
     private List<ItemModel> items;
     private String title;
@@ -14,6 +14,14 @@ public abstract class CamembertModel implements ICamembertModel
     public CamembertModel(String title)
     {
         this.title = title;
+        this.unit = "euros";
+        this.items = new ArrayList<>();
+    }
+    
+    public CamembertModel(String title, String unit)
+    {
+        this.title = title;
+        this.unit = unit;
         this.items = new ArrayList<>();
     }
 
@@ -41,11 +49,13 @@ public abstract class CamembertModel implements ICamembertModel
         this.title = title;
     }
     
+    @Override
     public String getUnit()
     {
         return unit;
     }
 
+    @Override
     public void setUnit(String unit)
     {
         this.unit = unit;
@@ -95,7 +105,7 @@ public abstract class CamembertModel implements ICamembertModel
     }
 
     @Override
-    public void RemoveItem(ItemModel itemModel)
+    public void removeItem(ItemModel itemModel)
     {
         this.items.remove(itemModel);
     }
