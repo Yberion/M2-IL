@@ -23,10 +23,9 @@ public class Tp3Application implements CommandLineRunner
     public void run(String... args)
     {
         System.out.println(this.helloWorldService.getHelloMessage());
-        
         this.client.run();
     }
-
+    
     public static void main(String... args)
     {
         SpringApplication.run(Tp3Application.class, args);

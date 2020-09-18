@@ -1,4 +1,4 @@
-package fr.brandon.tp3;
+package fr.brandon.tp3.part1;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,6 +18,7 @@ class Tp3ApplicationTests
     {
         assertThat(this.ctx).isNotNull();
         assertThat(this.ctx.containsBean("helloWorldService")).isTrue();
-        assertThat(this.ctx.containsBean("client")).isTrue();
+        assertThat(this.ctx.containsBean("clientImpl")).isTrue();
+        assertThat(this.ctx.containsBean("storeImpl")).isTrue();
     }
 }
