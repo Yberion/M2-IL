@@ -11,14 +11,13 @@ public class ProviderImpl implements Provider
     @Override
     public double getPrice(String article)
     {
-        // TODO Auto-generated method stub
-        return 0;
+        System.out.println("Provider: Prix de " + article);
+        return 1.20;
     }
 
     @Override
     public void order(String article, int amount)
     {
-        // TODO Auto-generated method stub
-        
+        System.out.println("Provider: Commande de " + amount + " " + article);
     }
 }

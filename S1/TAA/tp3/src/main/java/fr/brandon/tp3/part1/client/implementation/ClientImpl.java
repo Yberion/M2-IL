@@ -27,6 +27,6 @@ public class ClientImpl implements Client
         System.out.println("Client running");
         
         this.fastLane.oneShotOrder("tomate", 2);
+        this.justHaveALook.isAvailable("tomate", 3);
     }
-    
 }

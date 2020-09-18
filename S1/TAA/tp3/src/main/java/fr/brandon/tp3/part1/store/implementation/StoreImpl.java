@@ -1,5 +1,6 @@
 package fr.brandon.tp3.part1.store.implementation;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import fr.brandon.tp3.part1.bank.api.Bank;
@@ -15,6 +16,9 @@ public class StoreImpl implements FastLane, JustHaveALook, Lane, Store
 {
     private Bank bank;
     private Provider provider;
+    
+    @Value("${storeName:Olivier}")
+    private String name;
 
     public StoreImpl(Bank bank, Provider provider)
     {
@@ -25,13 +29,13 @@ public class StoreImpl implements FastLane, JustHaveALook, Lane, Store
     @Override
     public void addItemToCart(String article, Client client)
     {
-        System.out.println("Ajout de " + article + " dans le panier");
+        System.out.println("Ajout de " + article + " dans le panier au client " + client);
     }
 
     @Override
     public void pay(Client client)
     {
-        System.out.println("Paiement du panier");
+        System.out.println("Paiement du panier par le client " + client);
     }
 
     @Override
@@ -45,7 +49,9 @@ public class StoreImpl implements FastLane, JustHaveALook, Lane, Store
     @Override
     public boolean isAvailable(String article, int amount)
     {
-        System.out.println("Disponibilité de " + amount + " " + article);
+        System.out.println("DisponibilitÃ© de " + amount + " " + article);
+
+        this.provider.order(article, amount);
         
         return true;
     }
@@ -54,5 +60,7 @@ public class StoreImpl implements FastLane, JustHaveALook, Lane, Store
     public void oneShotOrder(String article, int amount)
     {
         System.out.println("Achat de " + amount + " " + article);
+        
+        this.bank.transfert("Brandon", "Olivier", 15);
     }
 }

@@ -8,7 +8,8 @@ import fr.brandon.tp3.part1.bank.api.Bank;
 public class BankImpl implements Bank
 {
     @Override
-    public void transfert(String from, String to)
+    public void transfert(String from, String to, int amount)
     {
+        System.out.println("Transfert de fond d'un montant de " + amount + "€ du compte de " + from + " vers le compte de " + to);
     }
 }

@@ -10,8 +10,13 @@ import org.springframework.context.ApplicationContext;
 @SpringBootTest
 class Tp3ApplicationTests
 {
-    @Autowired
-    ApplicationContext ctx;
+    private ApplicationContext ctx;
+
+    public Tp3ApplicationTests(ApplicationContext ctx)
+    {
+        super();
+        this.ctx = ctx;
+    }
 
     @Test
     void testContextLoads() throws Exception
