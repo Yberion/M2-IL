@@ -10,4 +10,8 @@ public interface ICamembertController
     void setSelectedPie(int selectedPie);
     void setView(CamembertView view);
     CamembertView getView();
+    void deselectItems();
+    void nextPie();
+    void previousPie();
+    void selectPie(int i);
 }

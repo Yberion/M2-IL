@@ -6,17 +6,9 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.LayoutManager;
-import java.awt.List;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -25,7 +17,6 @@ import java.awt.font.LineBreakMeasurer;
 import java.awt.font.TextLayout;
 import java.awt.geom.Arc2D;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
@@ -33,22 +24,9 @@ import java.beans.PropertyChangeListener;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import TP0.controller.api.ICamembertController;
-import TP0.model.api.ICamembertModel;
-import TP0.model.implementation.CamembertModel;
 import TP0.model.implementation.CamembertModelAdapter;
 import TP0.view.api.ICamembertView;
 
@@ -157,40 +135,6 @@ public class CamembertView extends JComponent
     public void setController(ICamembertController controller)
     {
         this.controller = controller;
-    }
-
-    // Those function should be in the controller
-    
-    // deselect all pieces
-    public void deselectItems()
-    {
-        controller.setSelected(false);
-        repaint();
-    }
-
-    // select the next piece of pie
-    public void nextPie()
-    {
-        controller.setSelectedPie((controller.getSelectedPie() + 1) % model.size());
-        System.out.println("Selected pie next" + controller.getSelectedPie());
-        repaint();
-    }
-
-    // select the previous piece of pie
-    public void previousPie()
-    {
-        controller.setSelectedPie((controller.getSelectedPie() + model.size() - 1) % model.size());
-        System.out.println("Selected pie previous" + controller.getSelectedPie());
-        repaint();
-    }
-
-    // select a piece of pie
-    public void selectPie(int i)
-    {
-        controller.setSelected(true);
-        controller.setSelectedPie(i);
-        System.out.println("Selected pie" + i);
-        repaint();
     }
 
     private void drawPreviousNextButtons(Graphics2D g2d)
@@ -567,7 +511,7 @@ public class CamembertView extends JComponent
 
         if (center.contains(arg0.getX(), arg0.getY()))
         {
-            this.deselectItems();
+            this.controller.deselectItems();
         }
         else
         {
@@ -577,19 +521,19 @@ public class CamembertView extends JComponent
 
                 if (arcs.get(i).contains(arg0.getX(), arg0.getY()) && !emptyCenter.contains(arg0.getX(), arg0.getY()))
                 {
-                    this.selectPie(i);
+                    this.controller.selectPie(i);
                 }
             }
         }
 
         if (previous.contains(arg0.getX(), arg0.getY()))
         {
-            this.nextPie();
+            this.controller.nextPie();
         }
 
         if (next.contains(arg0.getX(), arg0.getY()))
         {
-            this.previousPie();
+            this.controller.previousPie();
         }
     }
 

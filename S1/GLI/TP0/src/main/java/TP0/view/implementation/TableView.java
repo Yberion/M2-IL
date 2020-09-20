@@ -28,9 +28,11 @@ public class TableView extends JTable
         
         addMouseListener(this);
 
-        String[] entetes = {"Titre", "Description"};
+        String[] entetes = {"Titre", "Description", "Prix"};
+        
+        String[][] data = { { "a", "b", "c" }, { "a", "b", "c" } };
  
-        DefaultTableModel defaultTableModel = new DefaultTableModel(null, entetes);
+        DefaultTableModel defaultTableModel = new DefaultTableModel(data, entetes);
 
         setModel(defaultTableModel);
         
