@@ -31,18 +31,7 @@ DnD.prototype.maFctGerantLaPression = (evt) => {
     this.xStart = getMousePosition(this.canvas, evt).x;
     this.yStart = getMousePosition(this.canvas, evt).y;
     this.mouseClicked = true;
-    console.log(
-        "Pression, xStart = " +
-            this.xStart +
-            ", yStart = " +
-            this.yStart +
-            ", xEnd = " +
-            this.xEnd +
-            ", yEnd = " +
-            this.yEnd +
-            ", clicked = " +
-            this.mouseClicked
-    );
+    console.log("Pression, xStart = " + this.xStart + ", yStart = " + this.yStart + ", xEnd = " + this.xEnd + ", yEnd = " + this.yEnd + ", clicked = " + this.mouseClicked);
 };
 
 DnD.prototype.maFctGerantLeDeplacement = (evt) => {
@@ -50,18 +39,7 @@ DnD.prototype.maFctGerantLeDeplacement = (evt) => {
         this.interactor.onInteractionUpdate(this);
         this.xEnd = getMousePosition(this.canvas, evt).x;
         this.yEnd = getMousePosition(this.canvas, evt).y;
-        console.log(
-            "Déplacement, xStart = " +
-                this.xStart +
-                ", yStart = " +
-                this.yStart +
-                ", xEnd = " +
-                this.xEnd +
-                ", yEnd = " +
-                this.yEnd +
-                ", clicked = " +
-                this.mouseClicked
-        );
+        console.log("Déplacement, xStart = " + this.xStart + ", yStart = " + this.yStart + ", xEnd = " + this.xEnd + ", yEnd = " + this.yEnd + ", clicked = " + this.mouseClicked);
     }
 };
 
@@ -71,18 +49,7 @@ DnD.prototype.maFctGerantLeRelachement = (evt) => {
         this.mouseClicked = false;
         this.xEnd = getMousePosition(this.canvas, evt).x;
         this.yEnd = getMousePosition(this.canvas, evt).y;
-        console.log(
-            "Relâchement, xStart = " +
-                this.xStart +
-                ", yStart = " +
-                this.yStart +
-                ", xEnd = " +
-                this.xEnd +
-                ", yEnd = " +
-                this.yEnd +
-                ", clicked = " +
-                this.mouseClicked
-        );
+        console.log("Relâchement, xStart = " + this.xStart + ", yStart = " + this.yStart + ", xEnd = " + this.xEnd + ", yEnd = " + this.yEnd + ", clicked = " + this.mouseClicked);
     }
 };
 
