@@ -13,11 +13,12 @@ function Pencil(ctx, drawing, canvas) {
     }
 
     // Liez ici les widgets à la classe pour modifier les attributs présents ci-dessus.
+    // Récupérer les infos via le DOM ?
 
     new DnD(canvas, this);
 
     // Implémentez ici les 3 fonctions onInteractionStart, onInteractionUpdate et onInteractionEnd
-
+    // Faut gérer quand c'est Line ou Rectangle de sélectionné
     this.onInteractionStart = function (dnd) {
         this.currentShape.xStart = dnd.xStart;
         this.currentShape.yStart = dnd.yStart;
