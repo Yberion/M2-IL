@@ -31,7 +31,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'fr.brandon.tp3.part1.Tp3Application'
+    mainClassName = 'fr.brandon.tp3.part1_2.Tp3Application'
 }
 
 test {

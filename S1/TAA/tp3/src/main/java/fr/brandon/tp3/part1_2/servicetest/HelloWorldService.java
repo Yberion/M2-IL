@@ -1,4 +1,4 @@
-package fr.brandon.tp3.part1.servicetest;
+package fr.brandon.tp3.part1_2.servicetest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

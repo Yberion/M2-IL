@@ -1,4 +1,4 @@
-package fr.brandon.tp3.part1.provider.api;
+package fr.brandon.tp3.part1_2.provider.api;
 
 public interface Provider
 {

@@ -1,11 +1,11 @@
-package fr.brandon.tp3.part1.client.implementation;
+package fr.brandon.tp3.part1_2.client.implementation;
 
 import org.springframework.stereotype.Component;
 
-import fr.brandon.tp3.part1.client.api.Client;
-import fr.brandon.tp3.part1.store.api.FastLane;
-import fr.brandon.tp3.part1.store.api.JustHaveALook;
-import fr.brandon.tp3.part1.store.api.Lane;
+import fr.brandon.tp3.part1_2.client.api.Client;
+import fr.brandon.tp3.part1_2.store.api.FastLane;
+import fr.brandon.tp3.part1_2.store.api.JustHaveALook;
+import fr.brandon.tp3.part1_2.store.api.Lane;
 
 @Component
 public class ClientImpl implements Client
@@ -28,5 +28,6 @@ public class ClientImpl implements Client
         
         this.fastLane.oneShotOrder("tomate", 2);
         this.justHaveALook.isAvailable("tomate", 3);
+        this.lane.pay("Brandon");
     }
 }

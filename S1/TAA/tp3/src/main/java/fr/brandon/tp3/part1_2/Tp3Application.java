@@ -1,11 +1,11 @@
-package fr.brandon.tp3.part1;
+package fr.brandon.tp3.part1_2;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import fr.brandon.tp3.part1.client.api.Client;
-import fr.brandon.tp3.part1.servicetest.HelloWorldService;
+import fr.brandon.tp3.part1_2.client.api.Client;
+import fr.brandon.tp3.part1_2.servicetest.HelloWorldService;
 
 @SpringBootApplication
 public class Tp3Application implements CommandLineRunner

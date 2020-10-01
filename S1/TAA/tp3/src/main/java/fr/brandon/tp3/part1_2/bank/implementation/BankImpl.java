@@ -1,8 +1,8 @@
-package fr.brandon.tp3.part1.bank.implementation;
+package fr.brandon.tp3.part1_2.bank.implementation;
 
 import org.springframework.stereotype.Component;
 
-import fr.brandon.tp3.part1.bank.api.Bank;
+import fr.brandon.tp3.part1_2.bank.api.Bank;
 
 @Component
 public class BankImpl implements Bank

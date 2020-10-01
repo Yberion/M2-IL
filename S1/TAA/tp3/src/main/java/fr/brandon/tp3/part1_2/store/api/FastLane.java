@@ -1,4 +1,4 @@
-package fr.brandon.tp3.part1.store.api;
+package fr.brandon.tp3.part1_2.store.api;
 
 public interface FastLane
 {
