@@ -10,6 +10,34 @@ function DnD(canvas, interactor) {
     this.canvas = canvas;
     this.interactor = interactor;
 
+
+    // Developper les 3 fonctions gérant les événements
+this.maFctGerantLaPression = (evt) => {
+    this.xStart = getMousePosition(this.canvas, evt).x;
+    this.yStart = getMousePosition(this.canvas, evt).y;
+    this.mouseClicked = true;
+    this.interactor.onInteractionStart(this);
+    console.log("Pression, xStart = " + this.xStart + ", yStart = " + this.yStart + ", xEnd = " + this.xEnd + ", yEnd = " + this.yEnd + ", clicked = " + this.mouseClicked);
+};
+
+this.maFctGerantLeDeplacement = (evt) => {
+    if (this.mouseClicked) {
+        this.xEnd = getMousePosition(this.canvas, evt).x;
+        this.yEnd = getMousePosition(this.canvas, evt).y;
+        this.interactor.onInteractionUpdate(this);
+        console.log("Déplacement, xStart = " + this.xStart + ", yStart = " + this.yStart + ", xEnd = " + this.xEnd + ", yEnd = " + this.yEnd + ", clicked = " + this.mouseClicked);
+    }
+};
+
+this.maFctGerantLeRelachement = (evt) => {
+    if (this.mouseClicked) {
+        this.mouseClicked = false;
+        this.xEnd = getMousePosition(this.canvas, evt).x;
+        this.yEnd = getMousePosition(this.canvas, evt).y;
+        this.interactor.onInteractionEnd(this);
+        console.log("Relâchement, xStart = " + this.xStart + ", yStart = " + this.yStart + ", xEnd = " + this.xEnd + ", yEnd = " + this.yEnd + ", clicked = " + this.mouseClicked);
+    }
+};
     /*
     this.maFctGerantLaPression = function(evt) {
         this.xStart = getMousePosition(this.canvas, evt).x;
@@ -25,33 +53,7 @@ function DnD(canvas, interactor) {
     canvas.addEventListener("mouseup", this.maFctGerantLeRelachement, false);
 }
 
-// Developper les 3 fonctions gérant les événements
-DnD.prototype.maFctGerantLaPression = (evt) => {
-    this.xStart = getMousePosition(this.canvas, evt).x;
-    this.yStart = getMousePosition(this.canvas, evt).y;
-    this.mouseClicked = true;
-    this.interactor.onInteractionStart(this);
-    console.log("Pression, xStart = " + this.xStart + ", yStart = " + this.yStart + ", xEnd = " + this.xEnd + ", yEnd = " + this.yEnd + ", clicked = " + this.mouseClicked);
-};
 
-DnD.prototype.maFctGerantLeDeplacement = (evt) => {
-    if (this.mouseClicked) {
-        this.xEnd = getMousePosition(this.canvas, evt).x;
-        this.yEnd = getMousePosition(this.canvas, evt).y;
-        this.interactor.onInteractionUpdate(this);
-        console.log("Déplacement, xStart = " + this.xStart + ", yStart = " + this.yStart + ", xEnd = " + this.xEnd + ", yEnd = " + this.yEnd + ", clicked = " + this.mouseClicked);
-    }
-};
-
-DnD.prototype.maFctGerantLeRelachement = (evt) => {
-    if (this.mouseClicked) {
-        this.mouseClicked = false;
-        this.xEnd = getMousePosition(this.canvas, evt).x;
-        this.yEnd = getMousePosition(this.canvas, evt).y;
-        this.interactor.onInteractionEnd(this);
-        console.log("Relâchement, xStart = " + this.xStart + ", yStart = " + this.yStart + ", xEnd = " + this.xEnd + ", yEnd = " + this.yEnd + ", clicked = " + this.mouseClicked);
-    }
-};
 
 // Place le point de l'événement evt relativement à la position du canvas.
 function getMousePosition(canvas, evt) {

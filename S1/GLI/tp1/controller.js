@@ -12,6 +12,13 @@ function Pencil(ctx, drawing, canvas) {
         this.currentShape = new Rectangle(0, 0, 0, 0, this.currLineWidth, this.currColour);
     }
 
+    document.getElementById('butRect').addEventListener("click", () => {
+        this.currentShape = editingMode.rect;
+    }, false);
+    document.getElementById('colour').addEventListener("change", (evt) => {
+        console.log(evt);
+        this.currColour = evt.target.value;
+    }, false);
     // Liez ici les widgets à la classe pour modifier les attributs présents ci-dessus.
     // Récupérer les infos via le DOM ?
 
@@ -22,13 +29,13 @@ function Pencil(ctx, drawing, canvas) {
     this.onInteractionStart = function (dnd) {
         this.currentShape.xStart = dnd.xStart;
         this.currentShape.yStart = dnd.yStart;
-        drawing.paint(ctx);
+        drawing.paint(ctx,this.canvas);
     }.bind(this);
 
     this.onInteractionUpdate = function (dnd) {
         this.currentShape.xEnd = dnd.xEnd;
         this.currentShape.yEnd = dnd.yEnd;
-        drawing.paint(ctx);
+        drawing.paint(ctx,this.canvas);
     }.bind(this);
 
     this.onInteractionEnd = function (dnd) {
@@ -37,6 +44,6 @@ function Pencil(ctx, drawing, canvas) {
 
         this.drawing.forms.push(this.currentShape);
 
-        drawing.paint(ctx);
+        drawing.paint(ctx,this.canvas);
     }.bind(this);
 }
