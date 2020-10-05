@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.brandon.tp3.part3.domain.kanban.Kanban;
 import fr.brandon.tp3.part3.repository.kanban.api.KanbanDAO;
-import fr.brandon.tp3.part3.repository.kanban.implementation.KanbanDAOImpl;
 import fr.brandon.tp3.part3.service.kanban.KanbanDTO;
 import fr.brandon.tp3.part3.service.kanban.converter.api.KanbanToKanbanDTO;
 import fr.brandon.tp3.part3.service.kanban.converter.implementation.KanbanToKanbanDTOImpl;
@@ -20,23 +19,32 @@ import fr.brandon.tp3.part3.service.kanban.converter.implementation.KanbanToKanb
 @RequestMapping("/api/v1/kanban")
 public class KanbanResource
 {
-    // COMPONENT POUR INJECTION ?
-    private final KanbanDAO kanbanDAO = new KanbanDAOImpl();
+    private final KanbanDAO kanbanDAO;
 
-    @GetMapping("/get/{id}")
+    public KanbanResource(KanbanDAO kanbanDAO) {
+		super();
+		this.kanbanDAO = kanbanDAO;
+	}
+
+	@GetMapping("/get/{id}")
     @ResponseBody // Return Kanban formated to JSON
     public KanbanDTO getKanbanById(@PathVariable("id") Long id)
     {
         KanbanToKanbanDTO kanbanToKanbanDTO = new KanbanToKanbanDTOImpl();
-        return kanbanToKanbanDTO.convert(kanbanDAO.findOne(id));
+        return kanbanToKanbanDTO.convert(kanbanDAO.findById(id).get()); 
     }
 
+	
+	//@GetMapping("/add")
+    //@ResponseBody
+    //public String addKanban()
     @PostMapping("/add")
     @ResponseBody
     public String addKanban(@RequestBody KanbanDTO kanban)
     {
-        // Creer un nouveau Kanban ici et le peupler ici ?
-        kanbanDAO.save(kanban);
+        // Creer un nouveau Kanban ici et le peupler ici ? -> oui
+    	
+        kanbanDAO.save(new Kanban());
         return "Kanban added";
     }
 

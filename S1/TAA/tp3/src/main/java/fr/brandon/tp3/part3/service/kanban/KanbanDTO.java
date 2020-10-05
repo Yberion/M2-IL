@@ -4,8 +4,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-// PAS DE JSON DANS SPRING?
-@XmlRootElement(name = "Kanban")
+@XmlRootElement()
 public class KanbanDTO
 {
     private long id;

@@ -10,9 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-// @Data et on enlève setter + getter ??
-// Plus besoin du OneToMany et autre relation ?
-
 @Entity
 public class Kanban implements Serializable
 {

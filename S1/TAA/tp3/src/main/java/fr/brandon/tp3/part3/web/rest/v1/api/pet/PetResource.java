@@ -14,7 +14,7 @@ import fr.brandon.tp3.part3.service.pet.PetDTO;
 @RequestMapping("/api/v1/pet")
 public class PetResource
 {
-    @GetMapping("/get/{petId}")
+    @GetMapping(produces = "application/json" ,path = "/get/{petId}")
     @ResponseBody // Return Pet formated to JSON
     public PetDTO getPetById(@PathVariable("petId") Long petId)
     {
