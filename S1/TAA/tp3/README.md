@@ -20,11 +20,18 @@ To remove all existing DB remove all ``test.*`` files.
 
 ## Spring boot
 
-You have to start the ``HSQLDB`` server (well, not needed for the first part of the TP).
+You have to start the ``HSQLDB`` server (well, not needed for the first and second part of the TP).
 
-To start the application run ``gradle bootRun``
+### Part 1 & 2
+
+To start the application run ``gradle bootRun``/``gradle run``, you can also run the application through Eclipse, right click on ``Tp3Application.java`` -> ``Run As -> Java Application``.
+
+The AOP is used on all methods within ``part1_2.*.implementation.*`` java files for the logging system (just a print for the test), there's also @Around used on all methods within ``part1_2.bank.implementation.*`` java files.
 
 I'm using constructors for dependencies injection instead of ``@Autowired``.
+
+### Part 3
+
 
 ___
 
