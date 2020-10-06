@@ -19,7 +19,7 @@ public class Carte implements Serializable
     {
         super();
     }
-    
+
     public Carte(Section section, Fiche fiche)
     {
         super();

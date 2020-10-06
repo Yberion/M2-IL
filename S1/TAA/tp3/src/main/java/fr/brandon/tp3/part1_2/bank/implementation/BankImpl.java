@@ -10,6 +10,7 @@ public class BankImpl implements Bank
     @Override
     public void transfert(String from, String to, int amount)
     {
-        System.out.println("Transfert de fond d'un montant de " + amount + "€ du compte de " + from + " vers le compte de " + to);
+        System.out.println("Transfert de fond d'un montant de " + amount + "€ du compte de " + from
+                + " vers le compte de " + to);
     }
 }

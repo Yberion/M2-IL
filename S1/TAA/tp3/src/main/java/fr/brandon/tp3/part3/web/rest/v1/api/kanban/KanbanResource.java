@@ -12,55 +12,56 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.brandon.tp3.part3.domain.kanban.Kanban;
-import fr.brandon.tp3.part3.repository.kanban.api.KanbanDAO;
-import fr.brandon.tp3.part3.service.kanban.KanbanDTO;
-import fr.brandon.tp3.part3.service.kanban.converter.api.KanbanToKanbanDTO;
-import fr.brandon.tp3.part3.service.kanban.converter.implementation.KanbanToKanbanDTOImpl;
+import fr.brandon.tp3.part3.repository.kanban.KanbanRepository;
+import fr.brandon.tp3.part3.service.dto.kanban.KanbanDTO;
+import fr.brandon.tp3.part3.service.dto.kanban.converter.api.KanbanToKanbanDTO;
+import fr.brandon.tp3.part3.service.dto.kanban.converter.implementation.KanbanToKanbanDTOImpl;
 
 @RestController
 @RequestMapping("/api/v1/kanban")
 public class KanbanResource
 {
-    private final KanbanDAO kanbanDAO;
+    private final KanbanRepository kanbanRepository;
 
-    public KanbanResource(KanbanDAO kanbanDAO) {
-		super();
-		this.kanbanDAO = kanbanDAO;
-	}
+    public KanbanResource(KanbanRepository kanbanRepository)
+    {
+        super();
+        this.kanbanRepository = kanbanRepository;
+    }
 
-	@GetMapping("/get/{id}")
+    @GetMapping("/get/{id}")
     @ResponseBody // Return Kanban formated to JSON
     public KanbanDTO getKanbanById(@PathVariable("id") Long id)
     {
         KanbanToKanbanDTO kanbanToKanbanDTO = new KanbanToKanbanDTOImpl();
-        Optional<Kanban> kanban = kanbanDAO.findById(id);
-        
+        Optional<Kanban> kanban = kanbanRepository.findById(id);
+
         if (kanban.isPresent())
         {
             return kanbanToKanbanDTO.convert(kanban.get());
         }
-        
-        return new KanbanDTO(); 
+        return new KanbanDTO();
     }
 
-	
-	//@GetMapping("/add")
+    //@GetMapping("/add")
     //@ResponseBody
     //public String addKanban()
     @PostMapping("/add")
     @ResponseBody
-    public String addKanban(@RequestBody KanbanDTO kanban)
+    public String addKanban(@RequestBody KanbanDTO kanbanDTO)
     {
-        // Creer un nouveau Kanban ici et le peupler ici ? -> oui
-    	
-        kanbanDAO.save(new Kanban());
+        Kanban kanban = new Kanban();
+        //kanban.setId(kanbanDTO.getId());
+        kanban.setName(kanbanDTO.getName());
+        //Pas de DTO pour Section, un cas pour l'exemple suffit
+        kanbanRepository.save(kanban);
         return "Kanban added";
     }
 
-    @DeleteMapping("/remove/{id}")
-    public String removeKanbanById(@PathVariable("id") Long id)
+    @DeleteMapping("/delete/{id}")
+    public String deleteKanbanById(@PathVariable("id") Long id)
     {
-        kanbanDAO.deleteById(id);
+        kanbanRepository.deleteById(id);
         return "Kanban removed";
     }
 }

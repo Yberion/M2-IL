@@ -1,4 +1,4 @@
-package fr.brandon.tp3.part3.service.kanban;
+package fr.brandon.tp3.part3.service.dto.kanban;
 
 import java.util.List;
 

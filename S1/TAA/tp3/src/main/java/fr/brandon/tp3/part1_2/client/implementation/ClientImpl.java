@@ -25,7 +25,6 @@ public class ClientImpl implements Client
     public void run()
     {
         System.out.println("Client running");
-        
         this.fastLane.oneShotOrder("tomate", 2);
         this.justHaveALook.isAvailable("tomate", 3);
         this.lane.pay("Brandon");

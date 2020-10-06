@@ -25,7 +25,7 @@ public class Section implements Serializable
         super();
         this.cartes = new ArrayList<>();
     }
-    
+
     public Section(String name, Kanban kanban)
     {
         super();
@@ -33,7 +33,7 @@ public class Section implements Serializable
         this.kanban = kanban;
         this.cartes = new ArrayList<>();
     }
-    
+
     public Section(String name, Kanban kanban, List<Carte> cartes)
     {
         super();
@@ -63,7 +63,7 @@ public class Section implements Serializable
     {
         this.name = name;
     }
-    
+
     @ManyToOne
     public Kanban getKanban()
     {
@@ -85,12 +85,12 @@ public class Section implements Serializable
     {
         this.cartes = cartes;
     }
-    
+
     public void addCarte(Carte carte)
     {
         this.cartes.add(carte);
     }
-    
+
     public void removeCarte(Carte carte)
     {
         this.cartes.remove(carte);
@@ -105,6 +105,7 @@ public class Section implements Serializable
     @Override
     public boolean equals(Object obj)
     {
+
         if (this == obj)
         {
             return true;

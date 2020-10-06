@@ -1,4 +1,4 @@
-package fr.brandon.tp3.part3.service.pet;
+package fr.brandon.tp3.part3.service.dto.pet;
 
 import java.util.ArrayList;
 import java.util.List;

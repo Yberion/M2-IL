@@ -12,6 +12,7 @@ public class Logging
     @Before("execution(* fr.brandon.tp3.part1_2.*.implementation.*.*(..))")
     public void logBeforeCall(JoinPoint joinPoint)
     {
-        System.out.println("LOGGING: Calling methode \"" + joinPoint.getSignature().getName() + "()\" from the class \"" + joinPoint.getTarget().getClass() + "\"");
+        System.out.println("LOGGING: Calling methode \"" + joinPoint.getSignature().getName() + "()\" from the class \""
+                + joinPoint.getTarget().getClass() + "\"");
     }
 }

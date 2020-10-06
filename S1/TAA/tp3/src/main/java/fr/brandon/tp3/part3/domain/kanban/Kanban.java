@@ -64,12 +64,12 @@ public class Kanban implements Serializable
     {
         this.name = name;
     }
-    
+
     public void addSection(String name)
     {
         this.sections.add(new Section(name, this));
     }
-    
+
     public void removeSection(String name)
     {
         this.sections.remove(new Section(name, this));

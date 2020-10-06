@@ -15,7 +15,6 @@ public class StoreImpl implements FastLane, JustHaveALook, Lane, Store
 {
     private Bank bank;
     private Provider provider;
-    
     @Value("${storeName:Olivier}")
     private String name;
 
@@ -41,7 +40,6 @@ public class StoreImpl implements FastLane, JustHaveALook, Lane, Store
     public double getPrice(String article)
     {
         System.out.println("Prix de " + article);
-        
         return 1.50;
     }
 
@@ -49,9 +47,7 @@ public class StoreImpl implements FastLane, JustHaveALook, Lane, Store
     public boolean isAvailable(String article, int amount)
     {
         System.out.println("Disponibilité de " + amount + " " + article);
-
         this.provider.order(article, amount);
-        
         return true;
     }
 
@@ -59,7 +55,6 @@ public class StoreImpl implements FastLane, JustHaveALook, Lane, Store
     public void oneShotOrder(String article, int amount)
     {
         System.out.println("Achat de " + amount + " " + article);
-        
         this.bank.transfert("Brandon", "Olivier", 15);
     }
 }

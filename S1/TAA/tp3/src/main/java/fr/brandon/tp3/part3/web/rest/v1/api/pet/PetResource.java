@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.brandon.tp3.part3.service.pet.PetDTO;
+import fr.brandon.tp3.part3.service.dto.pet.PetDTO;
 
 @RestController
 @RequestMapping("/api/v1/pet")
 public class PetResource
 {
-    @GetMapping(produces = "application/json" ,path = "/get/{petId}")
+    @GetMapping(produces = "application/json", path = "/get/{petId}")
     @ResponseBody // Return Pet formated to JSON
     public PetDTO getPetById(@PathVariable("petId") Long petId)
     {

@@ -7,7 +7,6 @@ import fr.brandon.tp3.part1_2.provider.api.Provider;
 @Component
 public class ProviderImpl implements Provider
 {
-
     @Override
     public double getPrice(String article)
     {

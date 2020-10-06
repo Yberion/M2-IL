@@ -19,7 +19,7 @@ public class Tag implements Serializable
     private long id;
     private String name;
     private List<Fiche> fiches;
-    
+
     public Tag()
     {
         super();
@@ -43,7 +43,6 @@ public class Tag implements Serializable
         this.id = id;
     }
 
-    
     public String getName()
     {
         return name;

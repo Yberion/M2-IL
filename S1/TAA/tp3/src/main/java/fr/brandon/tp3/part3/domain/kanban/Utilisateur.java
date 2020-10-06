@@ -18,12 +18,12 @@ public class Utilisateur implements Serializable
     private long id;
     private String name;
     private List<Fiche> fiches;
-    
+
     public Utilisateur()
     {
         super();
     }
-    
+
     public Utilisateur(String name)
     {
         super();
@@ -36,17 +36,17 @@ public class Utilisateur implements Serializable
     {
         return id;
     }
-    
+
     public void setId(long id)
     {
         this.id = id;
     }
-    
+
     public String getName()
     {
         return name;
     }
-    
+
     public void setName(String name)
     {
         this.name = name;

@@ -46,7 +46,7 @@ public class Fiche implements Serializable
         super();
         this.tags = new ArrayList<>();
     }
-    
+
     public Fiche(String libelle, Date dateButoire, List<Utilisateur> utilisateurs, int tempsEstimation, List<Tag> tags,
             String lieu, String url, Carte carte)
     {
@@ -114,7 +114,7 @@ public class Fiche implements Serializable
     {
         this.tempsEstimation = tempsEstimation;
     }
-    
+
     @ManyToMany(mappedBy = "fiches")
     public List<Tag> getTags()
     {
@@ -145,7 +145,7 @@ public class Fiche implements Serializable
     {
         this.url = url;
     }
-    
+
     public String getHashGit()
     {
         return hashGit;
