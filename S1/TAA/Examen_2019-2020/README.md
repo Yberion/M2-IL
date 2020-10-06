@@ -11,7 +11,7 @@ Si on a des employés liés a un département :
 
 OU
 
-Sur la relation ``OneToMany(cascade = CascadeType.persist, Fetch = FetchType.E???)`` vérifier sur le TP.
+Sur la relation ``OneToMany(cascade = CascadeType.PERSIST, Fetch = FetchType.EAGER)``.
 
 Voir pdf Q1.
 
@@ -33,6 +33,7 @@ Diagrame de classe.
 
 ## Q5
 
+```Java
 @Entity
 class Task
 {
@@ -51,7 +52,9 @@ class Task
 	@ManyToMany
 	List<User> affect
 }
+```
 
+```Java
 @Entity
 class Tag
 {
@@ -61,20 +64,22 @@ class Tag
 	@ManyToMany(MappedBy ="tags")
 	List<Task> tasks;
 }
-
+```
+	
 ## Q6
 
-Pour l'injection de dépendance annoter @Repository qui descend de @Component
+Pour l'injection de dépendance annoter @Repository qui est un @Component
 
 public interface TaskDAO extends JpaRepository<Long, Task>
 { }
 
 ## Q7
 
-"select t from Task as t where t.done and t.dateButoir between ?1 and ?2"
+``select t from Task as t where t.done and t.dateButoir between ?1 and ?2``
 
 ## Q8
 
+```Java
 @Path("todos")
 public class TaskResources
 {
@@ -93,9 +98,11 @@ public class TaskResources
 		return this.dao.getAllTask(dateDebut, dateFin);
 	}
 }
+```
 
 ## Q9
 
+```Java
 @Aspect
 public class Log
 {
@@ -105,3 +112,4 @@ public class Log
         System.out.println("LOGGING: ....");
     }
 }
+```
