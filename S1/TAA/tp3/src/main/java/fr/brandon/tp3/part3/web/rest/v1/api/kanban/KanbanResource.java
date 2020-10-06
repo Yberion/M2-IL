@@ -1,5 +1,7 @@
 package fr.brandon.tp3.part3.web.rest.v1.api.kanban;
 
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +33,14 @@ public class KanbanResource
     public KanbanDTO getKanbanById(@PathVariable("id") Long id)
     {
         KanbanToKanbanDTO kanbanToKanbanDTO = new KanbanToKanbanDTOImpl();
-        return kanbanToKanbanDTO.convert(kanbanDAO.findById(id).get()); 
+        Optional<Kanban> kanban = kanbanDAO.findById(id);
+        
+        if (kanban.isPresent())
+        {
+            return kanbanToKanbanDTO.convert(kanban.get());
+        }
+        
+        return new KanbanDTO(); 
     }
 
 	
