@@ -82,7 +82,7 @@ public interface TaskRepository extends JpaRepository<Carte, Long>
 Code JPQL:
 
 ```SQL
-select t from Task as t where t.done and t.dateButoir between ?1 and ?2`
+select t from Task as t where t.done and t.dateButoir between ?1 and ?2
 ```
 
 ## Q8
