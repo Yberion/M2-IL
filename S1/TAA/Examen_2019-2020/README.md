@@ -2,10 +2,9 @@
 
 ## Q1
 
-Si l'objet est lié à d'autres objets la persistence par défaut ne s'applique pas aux objets liés.
+Si l'objet est lié à d'autres objets la persistence par défaut ne s'applique pas aux objets liés ce qui provoque l'exception.
 
 Si on a des employés liés a un département :
-
 
 ``em.persist(e1)`` ``em.persist(d1)``
 
@@ -32,6 +31,8 @@ La DTO est bien un package à part même si souvent défini directement dans le 
 Diagrame de classe.
 
 ## Q5
+
+Utilisation de JPA pour implémenter deux de ces classes.
 
 ```Java
 @Entity
@@ -68,16 +69,25 @@ class Tag
 	
 ## Q6
 
-Pour l'injection de dépendance annoter @Repository qui est un @Component
+Pour l'injection de dépendance annoter ``@Repository`` qui est un ``@Component`` ce qui permet l'injection de dépendances.
 
-public interface TaskDAO extends JpaRepository<Long, Task>
+```Java
+@Repository
+public interface TaskRepository extends JpaRepository<Carte, Long>
 { }
+```
 
 ## Q7
 
-``select t from Task as t where t.done and t.dateButoir between ?1 and ?2``
+Code JPQL:
+
+```SQL
+select t from Task as t where t.done and t.dateButoir between ?1 and ?2`
+```
 
 ## Q8
+
+Utilisation de JaxRS pour créer un service Rest simple.
 
 ```Java
 @Path("todos")
@@ -101,6 +111,8 @@ public class TaskResources
 ```
 
 ## Q9
+
+Création d'un aspect avec AspectJ.
 
 ```Java
 @Aspect
