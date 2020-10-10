@@ -13,7 +13,7 @@ You can display the current state of any DB using the GUI tool by running ``hsql
 Connect to the DB :
 
 - User : ``SA``
-- Password : 
+- Password : ````
 - URL : ``jdbc:hsqldb:hsql://localhost/test``
 
 To remove all existing DB remove all ``test.*`` files.
@@ -32,6 +32,12 @@ I'm using constructors for dependencies injection instead of ``@Autowired``.
 
 ### Part 3
 
+On this part, since there's "lot" of things involved, I am using [Lombok](https://projectlombok.org/) and [MapStruct](https://mapstruct.org/) (I could use [JMapper](https://github.com/jmapper-framework/jmapper-core) as well, but it's not maintained anymore?).
+Check [Performance of Java Mapping Frameworks](https://www.baeldung.com/java-performance-mapping-frameworks).
+
+For ``Lombok`` you need to [install the plugin](https://projectlombok.org/setup/eclipse) on your IDE using the ``.jar``. ``Lombok 1.18.14`` is currently broken on Eclipse https://github.com/rzwitserloot/lombok/issues/2599, download the [version 1.18.12](https://search.maven.org/search?q=g:org.projectlombok%20AND%20a:lombok&core=gav).
+
+For ``MapStruct`` you need to [install the plugin](https://mapstruct.org/documentation/ide-support/) on your IDE.
 
 ___
 
