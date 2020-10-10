@@ -8,6 +8,7 @@ import fr.brandon.tp3.part3.domain.kanban.Section;
 import fr.brandon.tp3.part3.service.dto.kanban.KanbanDTO;
 import fr.brandon.tp3.part3.service.dto.kanban.converter.api.KanbanToKanbanDTO;
 
+// Not used anymore
 public class KanbanToKanbanDTOImpl implements KanbanToKanbanDTO
 {
     @Override

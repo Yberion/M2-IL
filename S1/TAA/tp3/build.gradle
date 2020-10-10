@@ -27,6 +27,21 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
+	// MapStruct
+	implementation 'org.mapstruct:mapstruct:1.4.0.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.0.Final'
+
+	// Lombok, 1.18.14 currently broken on Eclipse https://github.com/rzwitserloot/lombok/issues/2599
+	annotationProcessor 'org.projectlombok:lombok:1.18.12'
+	compileOnly 'org.projectlombok:lombok:1.18.12'
+	testCompileOnly 'org.projectlombok:lombok:1.18.12'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+}
+
+// Use this in order to test on Eclipse
+sourceSets {
+    main.java.srcDirs += "build/generated/sources/annotationProcessor/java/main"
 }
 
 application {

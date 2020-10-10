@@ -5,9 +5,9 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class KanbanDTO
+public class UtilisateurDTO
 {
     private long id;
-    private List<SectionDTO> sections;
     private String name;
+    private List<FicheDTO> fiches;
 }

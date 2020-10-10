@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.brandon.tp3.part3.domain.kanban.Kanban;
 import fr.brandon.tp3.part3.repository.kanban.KanbanRepository;
 import fr.brandon.tp3.part3.service.dto.kanban.KanbanDTO;
-import fr.brandon.tp3.part3.service.dto.kanban.converter.api.KanbanToKanbanDTO;
-import fr.brandon.tp3.part3.service.dto.kanban.converter.implementation.KanbanToKanbanDTOImpl;
+import fr.brandon.tp3.part3.service.mapper.kanban.KanbanMapper;
 
 @RestController
 @RequestMapping("/api/v1/kanban")
@@ -33,28 +32,20 @@ public class KanbanResource
     @ResponseBody // Return Kanban formated to JSON
     public KanbanDTO getKanbanById(@PathVariable("id") Long id)
     {
-        KanbanToKanbanDTO kanbanToKanbanDTO = new KanbanToKanbanDTOImpl();
         Optional<Kanban> kanban = kanbanRepository.findById(id);
 
         if (kanban.isPresent())
         {
-            return kanbanToKanbanDTO.convert(kanban.get());
+            return KanbanMapper.MAPPER.toKanbanDTO(kanban.get());
         }
         return new KanbanDTO();
     }
 
-    //@GetMapping("/add")
-    //@ResponseBody
-    //public String addKanban()
     @PostMapping("/add")
     @ResponseBody
     public String addKanban(@RequestBody KanbanDTO kanbanDTO)
     {
-        Kanban kanban = new Kanban();
-        //kanban.setId(kanbanDTO.getId());
-        kanban.setName(kanbanDTO.getName());
-        //Pas de DTO pour Section, un cas pour l'exemple suffit
-        kanbanRepository.save(kanban);
+        kanbanRepository.save(KanbanMapper.MAPPER.toKanban(kanbanDTO));
         return "Kanban added";
     }
 

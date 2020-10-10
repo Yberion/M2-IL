@@ -44,7 +44,7 @@ public class Kanban implements Serializable
         this.id = id;
     }
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "kanban")
+    @OneToMany(cascade = { CascadeType.REMOVE, CascadeType.PERSIST }, mappedBy = "kanban")
     public List<Section> getSections()
     {
         return sections;

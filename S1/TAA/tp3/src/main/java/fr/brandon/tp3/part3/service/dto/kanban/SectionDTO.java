@@ -5,9 +5,10 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class KanbanDTO
+public class SectionDTO
 {
     private long id;
-    private List<SectionDTO> sections;
     private String name;
+    private KanbanDTO kanban;
+    private List<CarteDTO> cartes;
 }
