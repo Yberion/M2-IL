@@ -3,7 +3,6 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java-library'
 	id 'application'
-	id 'war'
 }
 
 group = 'fr.brandon.tp3'
@@ -29,8 +28,8 @@ dependencies {
 	}
 
 	// MapStruct
-	implementation 'org.mapstruct:mapstruct:1.4.0.Final'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.0.Final'
+	implementation 'org.mapstruct:mapstruct:1.4.1.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 
 	// Lombok, 1.18.14 currently broken on Eclipse https://github.com/rzwitserloot/lombok/issues/2599
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'

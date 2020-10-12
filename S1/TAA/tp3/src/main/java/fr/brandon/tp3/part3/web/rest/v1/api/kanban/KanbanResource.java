@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,10 +50,31 @@ public class KanbanResource
         return "Kanban added";
     }
 
+    @PutMapping("/update/{id}")
+    @ResponseBody
+    public KanbanDTO updateKanbanById(@PathVariable("id") Long id, @RequestBody KanbanDTO kanbanDTO)
+    {
+        Optional<Kanban> kanban = kanbanRepository.findById(id);
+
+        if (kanban.isPresent())
+        {
+            kanbanRepository.save(KanbanMapper.MAPPER.updateKanbanFromDTO(kanbanDTO, kanban.get()));
+            return KanbanMapper.MAPPER.toKanbanDTO(kanban.get());
+        }
+        return new KanbanDTO();
+    }
+
     @DeleteMapping("/delete/{id}")
     public String deleteKanbanById(@PathVariable("id") Long id)
     {
-        kanbanRepository.deleteById(id);
-        return "Kanban removed";
+        Optional<Kanban> kanban = kanbanRepository.findById(id);
+
+        if (kanban.isPresent())
+        {
+            kanbanRepository.deleteById(id);
+            return "Kanban removed";
+        }
+        
+        return "Kanban not found";
     }
 }
