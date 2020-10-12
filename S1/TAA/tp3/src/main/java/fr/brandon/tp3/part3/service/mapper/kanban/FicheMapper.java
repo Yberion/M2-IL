@@ -1,12 +1,12 @@
 package fr.brandon.tp3.part3.service.mapper.kanban;
 
 import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.factory.Mappers;
 
 import fr.brandon.tp3.part3.domain.kanban.Fiche;
 import fr.brandon.tp3.part3.service.dto.kanban.FicheDTO;
@@ -15,8 +15,7 @@ import fr.brandon.tp3.part3.service.dto.kanban.FicheDTO;
         UtilisateurMapper.class }, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface FicheMapper
 {
-    FicheMapper MAPPER = Mappers.getMapper(FicheMapper.class);
-
+    @Mapping(target = "id", ignore = true)
     Fiche toFiche(FicheDTO ficheDTO);
 
     @InheritInverseConfiguration(name = "toFiche")

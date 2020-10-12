@@ -1,12 +1,12 @@
 package fr.brandon.tp3.part3.service.mapper.kanban;
 
 import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.factory.Mappers;
 
 import fr.brandon.tp3.part3.domain.kanban.Kanban;
 import fr.brandon.tp3.part3.service.dto.kanban.KanbanDTO;
@@ -17,8 +17,7 @@ import fr.brandon.tp3.part3.service.dto.kanban.KanbanDTO;
         SectionMapper.class }, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface KanbanMapper
 {
-    KanbanMapper MAPPER = Mappers.getMapper(KanbanMapper.class);
-
+    @Mapping(target = "id", ignore = true)
     Kanban toKanban(KanbanDTO kanbanDTO);
 
     @InheritInverseConfiguration(name = "toKanban")
