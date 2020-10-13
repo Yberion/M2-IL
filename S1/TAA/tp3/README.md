@@ -13,7 +13,7 @@ You can display the current state of any DB using the GUI tool by running ``hsql
 Connect to the DB :
 
 - User : ``SA``
-- Password : ````
+- Password : `` ``
 - URL : ``jdbc:hsqldb:hsql://localhost/test``
 
 To remove all existing DB remove all ``test.*`` files.
