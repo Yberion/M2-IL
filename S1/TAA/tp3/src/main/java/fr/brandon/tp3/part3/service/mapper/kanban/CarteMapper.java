@@ -1,7 +1,6 @@
 package fr.brandon.tp3.part3.service.mapper.kanban;
 
 import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -12,7 +11,7 @@ import fr.brandon.tp3.part3.domain.kanban.Carte;
 import fr.brandon.tp3.part3.service.dto.kanban.CarteDTO;
 
 @Mapper(componentModel = "spring", uses = { SectionMapper.class,
-        TagMapper.class }, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+        FicheMapper.class }, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface CarteMapper
 {
     @Mapping(target = "id", ignore = true)

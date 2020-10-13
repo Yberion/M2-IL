@@ -1,7 +1,6 @@
 package fr.brandon.tp3.part3.service.mapper.kanban;
 
 import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

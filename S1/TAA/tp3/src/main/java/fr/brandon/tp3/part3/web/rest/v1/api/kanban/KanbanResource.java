@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.brandon.tp3.part3.domain.kanban.Kanban;
+import fr.brandon.tp3.part3.domain.kanban.Section;
 import fr.brandon.tp3.part3.repository.kanban.KanbanRepository;
 import fr.brandon.tp3.part3.service.dto.kanban.KanbanDTO;
 import fr.brandon.tp3.part3.service.mapper.kanban.KanbanMapper;
@@ -22,11 +23,13 @@ import fr.brandon.tp3.part3.service.mapper.kanban.KanbanMapper;
 public class KanbanResource
 {
     private final KanbanRepository kanbanRepository;
+    private final KanbanMapper kanbanMapper;
 
-    public KanbanResource(KanbanRepository kanbanRepository)
+    public KanbanResource(KanbanRepository kanbanRepository, KanbanMapper kanbanMapper)
     {
         super();
         this.kanbanRepository = kanbanRepository;
+        this.kanbanMapper = kanbanMapper;
     }
 
     @GetMapping("/get/{id}")
@@ -37,7 +40,7 @@ public class KanbanResource
 
         if (kanban.isPresent())
         {
-            return KanbanMapper.MAPPER.toKanbanDTO(kanban.get());
+            return kanbanMapper.toKanbanDTO(kanban.get());
         }
         return new KanbanDTO();
     }
@@ -46,7 +49,17 @@ public class KanbanResource
     @ResponseBody
     public String addKanban(@RequestBody KanbanDTO kanbanDTO)
     {
-        kanbanRepository.save(KanbanMapper.MAPPER.toKanban(kanbanDTO));
+        Kanban kanban = kanbanMapper.toKanban(kanbanDTO);
+
+        if (kanban.getSections() != null)
+        {
+
+            for (Section section : kanban.getSections())
+            {
+                section.setKanban(kanban);
+            }
+        }
+        kanbanRepository.save(kanban);
         return "Kanban added";
     }
 
@@ -58,8 +71,8 @@ public class KanbanResource
 
         if (kanban.isPresent())
         {
-            kanbanRepository.save(KanbanMapper.MAPPER.updateKanbanFromDTO(kanbanDTO, kanban.get()));
-            return KanbanMapper.MAPPER.toKanbanDTO(kanban.get());
+            kanbanRepository.save(kanbanMapper.updateKanbanFromDTO(kanbanDTO, kanban.get()));
+            return kanbanMapper.toKanbanDTO(kanban.get());
         }
         return new KanbanDTO();
     }
@@ -74,7 +87,6 @@ public class KanbanResource
             kanbanRepository.deleteById(id);
             return "Kanban removed";
         }
-        
         return "Kanban not found";
     }
 }

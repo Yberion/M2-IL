@@ -1,6 +1,7 @@
 package fr.brandon.tp3.part3.service.dto.kanban;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -20,4 +21,9 @@ public class FicheDTO
     private String hashGit;
     private String note;
     private CarteDTO carte;
+
+    public FicheDTO()
+    {
+        this.utilisateurs = new ArrayList<>();
+    }
 }
