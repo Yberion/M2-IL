@@ -4,7 +4,7 @@ Run ``gradle build``
 
 ## hsqldb
 
-Download the last version here : http://hsqldb.org/ and place it under the folder ``hsqldb``.
+Download the version 2.5.1 (or the last and update th gradle dependence in ``build.gradle``) here : http://hsqldb.org/ and place it under the folder ``hsqldb``.
 
 Start the ``hsqldb`` server by running ``hsqldb/run_server.sh/bat``.
 
@@ -35,9 +35,210 @@ I'm using constructors for dependencies injection instead of ``@Autowired``.
 On this part, since there's "lot" of things involved, I am using [Lombok](https://projectlombok.org/) and [MapStruct](https://mapstruct.org/) (I could use [JMapper](https://github.com/jmapper-framework/jmapper-core) as well, but it's not maintained anymore?).
 Check [Performance of Java Mapping Frameworks](https://www.baeldung.com/java-performance-mapping-frameworks).
 
-For ``Lombok`` you need to [install the plugin](https://projectlombok.org/setup/eclipse) on your IDE using the ``.jar``. ``Lombok 1.18.14`` is currently broken on Eclipse https://github.com/rzwitserloot/lombok/issues/2599, download the [version 1.18.12](https://search.maven.org/search?q=g:org.projectlombok%20AND%20a:lombok&core=gav).
+For ``Lombok`` you need to [install the plugin](https://projectlombok.org/setup/eclipse) on your IDE using the ``.jar``. ``Lombok 1.18.14`` is currently broken on Eclipse <https://github.com/rzwitserloot/lombok/issues/2599>, download the [version 1.18.12](https://search.maven.org/search?q=g:org.projectlombok%20AND%20a:lombok&core=gav).
 
 For ``MapStruct`` you need to [install the plugin](https://mapstruct.org/documentation/ide-support/) on your IDE.
+
+I am also using ``swagger`` through ``springfox-boot-starter 3.0.0`` and OpenAPI is enabled.
+
+#### Run
+
+To start the application run the application through Eclipse, right click on ``SampleDataJpaApplication.java`` -> ``Run As -> Java Application``.
+
+#### Swagger
+
+You can access ``swagger-ui`` through:
+
+<http://localhost:8080/swagger-ui/>
+
+#### AOP
+
+I defined an Aspect that log every Rest access.
+
+It detect all method that contain the annotations:
+
+- GetMapping
+- PostMapping
+- PutMapping
+- DeleteMapping
+
+The detection is done in all subpackage of ``web`` (included).
+
+The log look like this:
+
+``(GET) /api/v1/kanban/get/{id} (getKanbanById -> class fr.brandon.tp3.part3.web.rest.v1.api.kanban.KanbanResource)``
+
+I'm using ``@Slf4j`` from ``Lombok`` this way I don't have to create a logger, I can directly use ``log.method(...)``.
+
+``Slf4j`` because ``LogBack`` is used by Spring.
+
+#### Rest
+
+Only Rest access for ``Kanban`` and ``Section`` are created.
+
+You can add, get, update and delete.
+
+##### Test Rest
+
+**Kanban**
+
+Add a kanban with 2 sections associated to this kanban (cascade persist).
+
+```json
+{
+  "name": "kanban1",
+  "sections": [
+    {
+      "cartes": [],
+      "name": "section1"
+    },
+    {
+      "cartes": [],
+      "name": "section2"
+    }
+  ]
+}
+```
+
+Get the newly created kanban with ``id = 1``, result:
+
+```json
+{
+  "id": 1,
+  "sections": [
+    {
+      "id": 2,
+      "name": "section1",
+      "kanbanId": 1,
+      "cartes": []
+    },
+    {
+      "id": 3,
+      "name": "section2",
+      "kanbanId": 1,
+      "cartes": []
+    }
+  ],
+  "name": "kanban1"
+}
+```
+
+Put (update) the name of ``kanban1`` to ``kanban15``, ``id = 1``:
+
+```json
+{
+  "name": "kanban15"
+}
+```
+
+result:
+
+```json
+{
+  "id": 1,
+  "sections": [
+    {
+      "id": 2,
+      "name": "section1",
+      "kanbanId": 1,
+      "cartes": []
+    },
+    {
+      "id": 3,
+      "name": "section2",
+      "kanbanId": 1,
+      "cartes": []
+    }
+  ],
+  "name": "kanban15"
+}
+```
+
+Delete a kanban with ``id = 1``:
+
+``Kanban removed``
+
+**Section**
+
+Create a kanban without section (use the correct id since it's auto generated, in my test this one has ``id 4``):
+
+```json
+{
+  "name": "kanban20",
+  "sections": []
+}
+```
+
+Add a section:
+
+```json
+{
+  "cartes": [],
+  "name": "section50"
+}
+```
+
+Get the newly created section (find the good id, in my test ``id 5``), result (0 mean not associated to a kanban):
+
+```json
+{
+  "id": 5,
+  "name": "section1",
+  "kanbanId": 0,
+  "cartes": []
+}
+```
+
+Put (update) the name of ``section50`` to ``section999`` and we associate it to a kanban (``id 4``), ``id = 5`` (same id as above):
+
+```json
+{
+  "name": "section999",
+  "kanbanId": 4
+}
+```
+
+result:
+
+```json
+{
+  "id": 5,
+  "name": "section999",
+  "kanbanId": 4,
+  "cartes": []
+}
+```
+
+We can check by doing a Get on kanban ``id 4``:
+
+```json
+{
+  "id": 4,
+  "sections": [
+    {
+      "id": 5,
+      "name": "section999",
+      "kanbanId": 4,
+      "cartes": []
+    }
+  ],
+  "name": "kanban1"
+}
+```
+
+Delete a section with ``id = 5``:
+
+``Section removed``
+
+Which give when getting kanban ``id 4``:
+
+```json
+{
+  "id": 4,
+  "sections": [],
+  "name": "kanban1"
+}
+```
 
 ___
 
