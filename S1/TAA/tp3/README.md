@@ -4,8 +4,6 @@ Run ``gradle build``
 
 ## hsqldb
 
-Download the version 2.5.1 (or the last and update th gradle dependence in ``build.gradle``) here : http://hsqldb.org/ and place it under the folder ``hsqldb``.
-
 Start the ``hsqldb`` server by running ``hsqldb/run_server.sh/bat``.
 
 You can display the current state of any DB using the GUI tool by running ``hsqldb/GUI_hsqldb.sh/bat``.
