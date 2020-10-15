@@ -41,18 +41,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(viewActivityMain);
 
         binding.buttonValider.setOnClickListener(view -> {
+                    /*
                     String infos = "";
 
-                    infos += binding.editTextNom.getText() + " ";
-                    infos += binding.editTextPrenom.getText() + ", né le ";
-                    infos += binding.editTextDateNaissance.getText() + " à ";
-                    infos += binding.editTextVilleNaissance.getText();
+                    infos += binding.editTextNom.getText().toString() + " ";
+                    infos += binding.editTextPrenom.getText().toString() + ", né le ";
+                    infos += binding.editTextDateNaissance.getText().toString() + " à ";
+                    infos += binding.editTextVilleNaissance.getText().toString();
 
                     if (this.editTextPhone != null) {
-                        infos += ", " + this.editTextPhone.getText();
+                        infos += ", " + this.editTextPhone.getText().toString();
                     }
 
                     Toast.makeText(getApplicationContext(), infos, Toast.LENGTH_SHORT).show();
+                    */
+
+                    Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                    intent.putExtra("nom", binding.editTextNom.getText().toString());
+                    intent.putExtra("prenom", binding.editTextPrenom.getText().toString());
+                    intent.putExtra("dateNaissance", binding.editTextDateNaissance.getText().toString());
+                    intent.putExtra("ville", binding.editTextVilleNaissance.getText().toString());
+                    startActivity(intent);
                 }
         );
     }

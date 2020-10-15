@@ -15,6 +15,10 @@
     <string name="menuReset_infos">Réinitialiser</string>
     <string name="menuAdd_phone">Ajout champ téléphone</string>
     <string name="menuNavigateur">Navigateur</string>
+    <string name="A2textViewShowNom">Nom</string>
+    <string name="A2textViewShowPrenom">Prénom</string>
+    <string name="A2textViewShowDateNaissance">Date de naissance</string>
+    <string name="A2textViewShowVille">Ville</string>
 
     <string-array name="departements">
         <item>Ain</item>
