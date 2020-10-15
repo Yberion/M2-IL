@@ -1,5 +1,7 @@
 package fr.brandon.mmm.tp1;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -66,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
 
-        if (itemId == R.id.reset_infos) {
+        if (itemId == R.id.menuReset_infos) {
             resetInformation();
             return true;
-        } else if (itemId == R.id.add_phone) {
+        } else if (itemId == R.id.menuAdd_phone) {
             if (!this.phoneAdded) {
                 TextView textViewPhone = new TextView(this);
                 textViewPhone.setText(getResources().getString(R.string.textPhone));
@@ -85,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return true;
+        } else if (itemId == R.id.menuNavigateur) {
+            Uri webpage = Uri.parse("https://fr.wikipedia.org/wiki/" + this.binding.editTextVilleNaissance.getText());
+            Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

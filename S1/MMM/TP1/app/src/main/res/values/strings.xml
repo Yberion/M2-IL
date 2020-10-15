@@ -5,6 +5,7 @@
     <string name="textDate_de_naissance">Date de naissance</string>
     <string name="textNom_de_la_ville_de_naissance">Nom de la ville de naissance</string>
     <string name="textPhone">Numéro de téléphone</string>
+    <string name="textDepartement">Département</string>
     <string name="textEditHintVotre_nom">Votre nom</string>
     <string name="textEditHintVotre_prenom">Votre prénom</string>
     <string name="textEditHintDate_de_naissance">Date de naissance</string>
@@ -13,4 +14,12 @@
     <string name="buttonValider">Valider</string>
     <string name="menuReset_infos">Réinitialiser</string>
     <string name="menuAdd_phone">Ajout champ téléphone</string>
+    <string name="menuNavigateur">Navigateur</string>
+
+    <string-array name="departements">
+        <item>Ain</item>
+        <item>Aisne</item>
+        <item>Allier</item>
+        <item>Hautes-Alpes</item>
+    </string-array>
 </resources>

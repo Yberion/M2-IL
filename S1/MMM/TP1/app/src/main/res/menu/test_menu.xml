@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/reset_infos"
+        android:id="@+id/menuReset_infos"
         android:title="@string/menuReset_infos" />
     <item
-        android:id="@+id/add_phone"
+        android:id="@+id/menuAdd_phone"
         android:title="@string/menuAdd_phone" />
+    <item
+        android:id="@+id/menuNavigateur"
+        android:title="@string/menuNavigateur" />
 </menu>

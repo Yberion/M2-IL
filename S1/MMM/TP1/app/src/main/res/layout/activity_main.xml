@@ -84,6 +84,18 @@
             android:hint="@string/textEditHintVille_de_naissance"
             android:inputType="textPersonName" />
 
+        <TextView
+            android:id="@+id/textDepartement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textDepartement" />
+
+        <Spinner
+            android:id="@+id/spinnerDepartement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/departements" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
