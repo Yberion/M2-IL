@@ -19,6 +19,7 @@
     <string name="A2textViewShowPrenom">Prénom</string>
     <string name="A2textViewShowDateNaissance">Date de naissance</string>
     <string name="A2textViewShowVille">Ville</string>
+    <string name="buttonRetour">Retour</string>
 
     <string-array name="departements">
         <item>Ain</item>

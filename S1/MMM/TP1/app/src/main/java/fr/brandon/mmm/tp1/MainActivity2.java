@@ -4,21 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import fr.brandon.mmm.tp1.databinding.ActivityMain2Binding;
 
-public class MainActivity2 extends AppCompatActivity {
-    private @NonNull
-    ActivityMain2Binding binding;
-
-    public MainActivity2() {
-        binding = null;
-    }
+public class MainActivity2 extends AppCompatActivity
+{
+    private ActivityMain2Binding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         this.binding = ActivityMain2Binding.inflate(getLayoutInflater());
@@ -30,7 +26,8 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(viewActivityMain2);
     }
 
-    public void loadDataFromIntent() {
+    public void loadDataFromIntent()
+    {
         Intent intent = getIntent();
         this.binding.textViewShowNom.setText(intent.getStringExtra("nom"));
         this.binding.textViewShowPrenom.setText(intent.getStringExtra("prenom"));
