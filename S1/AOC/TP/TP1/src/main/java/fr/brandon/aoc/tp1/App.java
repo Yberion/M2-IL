@@ -25,10 +25,27 @@ package fr.brandon.aoc.tp1;
 
 import org.tinylog.Logger;
 
+import fr.brandon.aoc.tp1.afficheur.impl.Afficheur;
+import fr.brandon.aoc.tp1.canal.impl.Canal;
+import fr.brandon.aoc.tp1.capteur.api.Capteur;
+import fr.brandon.aoc.tp1.capteur.impl.CapteurImpl;
+
 public final class App
 {
     public static void main(String[] args)
     {
-        Logger.info(Test.getGreeting());
+        Logger.info("main()");
+        
+        Capteur capteur = new CapteurImpl();
+        
+        Canal canal1 = new Canal();
+        Canal canal2 = new Canal();
+        Canal canal3 = new Canal();
+        Canal canal4 = new Canal();
+        
+        Afficheur afficheur1 = new Afficheur();
+        Afficheur afficheur2 = new Afficheur();
+        Afficheur afficheur3 = new Afficheur();
+        Afficheur afficheur4 = new Afficheur();
     }
 }

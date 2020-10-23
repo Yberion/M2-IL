@@ -23,15 +23,15 @@
  */
 package fr.brandon.aoc.tp1;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
 class AppTest
 {
     @Test
-    void appHasAGreeting()
+    void test()
     {
-        assertNotNull(fr.brandon.aoc.tp1.Test.getGreeting(), "app should have a greeting");
+        assertNotEquals("12", "10");
     }
 }
