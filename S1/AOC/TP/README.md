@@ -1,4 +1,4 @@
-# TP1 : SUJET OBSERVER
+# TP : SUJET OBSERVER
 
 ## Conseils de mise en oeuvre
 
