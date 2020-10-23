@@ -65,3 +65,33 @@ Après arrêt de l'exécution (après une 100ène de tick par exemple) :
 - Atomique : toutes les traces sont égales à 1, 2, 3, ... L
 - Séquentielle : toutes les traces sont croissantes et identique
 - A étpoque ou causale : toutes les traces sont strictement croissantes
+
+## Diagrammes
+
+### (M2) Diagramme de classe Update
+
+![M2 Diagramme de classe Update](./draw/M2_Diagram_Class_Update.svg)
+
+### (M2) Diagramme de classe GetValue
+
+![M2 Diagramme de classe GetValue](./draw/M2_Diagram_Class_GetValue.svg)
+
+### (M2) Diagramme de séquence 1
+
+![M2 Diagramme de séquence 1](./draw/M2_Diagram_Sequence_1.svg)
+
+### (M2) Diagramme de séquence 2A
+
+![M2 Diagramme de séquence 2A](./draw/M2_Diagram_Sequence_2A.svg)
+
+### (M3) Diagramme de séquence 1
+
+![M3 Diagramme de séquence 1](./draw/M3_Diagram_Sequence_1.svg)
+
+### (M3) Diagramme de séquence 2A
+
+![M3 Diagramme de séquence 2A](./draw/M3_Diagram_Sequence_2A.svg)
+
+### (M3) Diagramme de séquence 2B
+
+![M3 Diagramme de séquence 2B](./draw/M3_Diagram_Sequence_2B.svg)
