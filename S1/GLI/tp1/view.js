@@ -5,10 +5,13 @@ Drawing.prototype.paint = function (ctx, canvas) {
     ctx.fillStyle = "#aaa"; // set canvas' background color
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    this.forms.forEach(function (eltDuTableau) {
-        // now fill the canvas
-        eltDuTableau.paint(ctx);
-    });
+    // Code temporaire pour tester l'affiche de la vue
+    var rec = new Rectangle(10, 20, 50, 100, 5, "#00CCC0");
+    rec.paint(ctx);
+    var ligne = new Line(10, 20, 50, 100, 5, "#00CCC0");
+    ligne.paint(ctx);
+
+    this.forms.forEach((eltDuTableau) => eltDuTableau.paint(ctx));
 };
 
 Form.prototype.paint = function (ctx) {
@@ -17,6 +20,7 @@ Form.prototype.paint = function (ctx) {
 };
 
 Rectangle.prototype.paint = function (ctx) {
+    
     Form.prototype.paint.call(this, ctx);
     ctx.beginPath();
     ctx.rect(this.xStart, this.yStart, this.width, this.height);
