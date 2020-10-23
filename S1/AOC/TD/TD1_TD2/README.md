@@ -1,9 +1,5 @@
 # TD 1 & 2
 
-## Question : Que se passe-t-il quand on emploie des appels asynchrones pour ``update()`` et ``getValue()`` ? Faire un diagramme de séquence avec 2 ``Observer``
-
-![Diagramme de séquence 1](./draw/Sequence_1.svg)
-
 ## Analyse des problèmes de Observer en asynchrone
 
 Si on n'a pas de gestion de cohérence -> bazar complet potentiel, les observers voient des choses différentes.
@@ -74,3 +70,17 @@ En d'autres termes : une variable pour le rédacteur, une autre pour les lecteur
 2. Au moment de l'écriture de la valeur V_i, la valeur est estampillée avec i.
 3. Lors d'une lecture, un lecteur reçoit la valeur courante de la variable, avec son estampille.
 4. Si la valeur reçue est plus ancienne que celle précédement reçue, on ne garde que la plus récente (au sens des estampilles, = celle qui a l'estampille la plus élevée).
+
+## (M1) Question : Que se passe-t-il quand on emploie des appels asynchrones pour ``update()`` et ``getValue()`` ? Faire un diagramme de séquence avec 2 ``Observer``
+
+![M1 Diagramme de séquence 1](./draw/M1_Diagram_Sequence_1.svg)
+
+## Diagrammes
+
+### (M1) Diagramme de classe M1
+
+![M1 Diagramme de classe](./draw/M1_Diagram_Class.svg)
+
+### (M1) Diagramme de séquence Capteur::Tick
+
+![M1 Diagramme de classe](./draw/M1_Diagram_Sequence_Capteur_Tick.svg)
