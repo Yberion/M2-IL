@@ -25,31 +25,49 @@ package fr.brandon.aoc.tp1.capteur.impl;
 
 import fr.brandon.aoc.tp1.capteur.api.Capteur;
 import fr.brandon.aoc.tp1.observer_de_capteur.api.ObserverDeCapteur;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class CapteurImpl implements Capteur
 {
+    private Set<ObserverDeCapteur> observers;
+    private Integer value;
+
+    public CapteurImpl()
+    {
+        this.observers = new LinkedHashSet<>();
+    }
+
     @Override
     public void attach(ObserverDeCapteur observer)
     {
-        // TODO Auto-generated method stub
+        Objects.requireNonNull(observer);
+        this.observers.add(observer);
     }
 
     @Override
     public void detach(ObserverDeCapteur observer)
     {
-        // TODO Auto-generated method stub
+        Objects.requireNonNull(observer);
+        this.observers.remove(observer);
     }
 
     @Override
     public Integer getValue()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return this.value;
     }
 
+    // Synchronize ?
     @Override
     public void tick()
     {
-        // TODO Auto-generated method stub
+        this.value++;
+
+        for (ObserverDeCapteur observer : this.observers)
+        {
+            observer.update(this);
+        }
     }
 }
