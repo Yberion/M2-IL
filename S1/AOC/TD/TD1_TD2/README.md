@@ -77,10 +77,10 @@ En d'autres termes : une variable pour le rédacteur, une autre pour les lecteur
 
 ## Diagrammes
 
-### (M1) Diagramme de classe M1
+### (M1) Diagramme de classe
 
 ![M1 Diagramme de classe](./draw/M1_Diagram_Class.svg)
 
 ### (M1) Diagramme de séquence Capteur::Tick
 
-![M1 Diagramme de classe](./draw/M1_Diagram_Sequence_Capteur_Tick.svg)
+![M1 Diagramme de séquence Capteur::Tick](./draw/M1_Diagram_Sequence_Capteur_Tick.svg)
