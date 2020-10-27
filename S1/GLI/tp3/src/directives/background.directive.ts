@@ -1,15 +1,23 @@
-import Vue from 'vue';
+import Vue from "vue";
 
-const defaultBackgroundColor = 'lightBlue'
-
-export const Background = {
+// Initialize the custom-background directive.
+export const customBackground = {
   bind(el: any, binding: any, vnode: any) {
     // el might not be present for server-side rendering.
-    if (el ) {
+    if (el) {
+      const defaultBackgroundColor = "lightblue";
+
       // Set the element's background color.
-      el.style.backgroundColor = binding.value || defaultBackgroundColor
-      el.innerHTML =  'My background color is :  ' + (binding.value || defaultBackgroundColor)
+      el.style.backgroundColor = binding.value || defaultBackgroundColor;
+
+      if (binding.value) {
+        el.innerHTML =
+          "My background color is : " +
+          (binding.value || defaultBackgroundColor);
+      }
     }
-  }, 
+  }
 };
-Vue.directive('background', Background);
+
+// You can also make it available globally.
+Vue.directive("custom-background", customBackground);
