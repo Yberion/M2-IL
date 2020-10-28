@@ -54,11 +54,6 @@ export default class Todos extends Vue {
     private newName = "";
     private remainingTasks = 0;
 
-    constructor() {
-        super();
-        this.tasks.push(new Todo("a", true, true));
-    }
-
     updateRemaining(): void {
         this.remainingTasks = 0;
         for (const todo of this.tasks) {
