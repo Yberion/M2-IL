@@ -21,11 +21,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1.algorithme_diffusion.api;
+package fr.brandon.aoc.tp.capteur.impl;
 
-public interface AlgorithmeDiffusion
+import fr.brandon.aoc.tp.capteur.api.Capteur;
+import fr.brandon.aoc.tp.observer_de_capteur.api.ObserverDeCapteur;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
+
+public class CapteurImpl implements Capteur
 {
-    void configure();
+    private Set<ObserverDeCapteur> observers;
+    private Integer value;
 
-    void execute();
+    public CapteurImpl()
+    {
+        this.observers = new LinkedHashSet<>();
+    }
+
+    @Override
+    public void attach(ObserverDeCapteur observer)
+    {
+        Objects.requireNonNull(observer);
+        this.observers.add(observer);
+    }
+
+    @Override
+    public void detach(ObserverDeCapteur observer)
+    {
+        Objects.requireNonNull(observer);
+        this.observers.remove(observer);
+    }
+
+    @Override
+    public Integer getValue()
+    {
+        return this.value;
+    }
+
+    // Synchronize ?
+    @Override
+    public void tick()
+    {
+        this.value++;
+
+        for (ObserverDeCapteur observer : this.observers)
+        {
+            observer.update(this);
+        }
+    }
 }

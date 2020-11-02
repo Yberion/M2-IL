@@ -21,11 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1.observer_de_capteur.api;
+package fr.brandon.aoc.tp;
 
-import fr.brandon.aoc.tp1.capteur.api.Capteur;
+import org.tinylog.Logger;
 
-public interface ObserverDeCapteur
+public final class App
 {
-    void update(Capteur capteur);
+    public static void main(String[] args)
+    {
+        Logger.info("main()");
+    }
 }

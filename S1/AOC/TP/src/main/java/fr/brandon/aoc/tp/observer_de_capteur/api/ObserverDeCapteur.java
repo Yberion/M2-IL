@@ -21,21 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1.algorithme_diffusion.impl;
+package fr.brandon.aoc.tp.observer_de_capteur.api;
 
-import fr.brandon.aoc.tp1.algorithme_diffusion.api.AlgorithmeDiffusion;
+import fr.brandon.aoc.tp.capteur.api.Capteur;
 
-public class DiffusionAtomique implements AlgorithmeDiffusion
+public interface ObserverDeCapteur
 {
-    @Override
-    public void configure()
-    {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void execute()
-    {
-        // TODO Auto-generated method stub
-    }
+    void update(Capteur capteur);
 }

@@ -21,14 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1;
+package fr.brandon.aoc.tp.algorithme_diffusion.impl;
 
-import org.tinylog.Logger;
+import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
 
-public final class App
+public class DiffusionCausal implements AlgorithmeDiffusion
 {
-    public static void main(String[] args)
+    @Override
+    public void configure()
     {
-        Logger.info("main()");
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void execute()
+    {
+        // TODO Auto-generated method stub
     }
 }

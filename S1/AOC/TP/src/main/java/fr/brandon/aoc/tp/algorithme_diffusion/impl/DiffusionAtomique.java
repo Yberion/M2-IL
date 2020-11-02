@@ -21,53 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1.capteur.impl;
+package fr.brandon.aoc.tp.algorithme_diffusion.impl;
 
-import fr.brandon.aoc.tp1.capteur.api.Capteur;
-import fr.brandon.aoc.tp1.observer_de_capteur.api.ObserverDeCapteur;
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
 
-public class CapteurImpl implements Capteur
+public class DiffusionAtomique implements AlgorithmeDiffusion
 {
-    private Set<ObserverDeCapteur> observers;
-    private Integer value;
-
-    public CapteurImpl()
+    @Override
+    public void configure()
     {
-        this.observers = new LinkedHashSet<>();
+        // TODO Auto-generated method stub
     }
 
     @Override
-    public void attach(ObserverDeCapteur observer)
+    public void execute()
     {
-        Objects.requireNonNull(observer);
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void detach(ObserverDeCapteur observer)
-    {
-        Objects.requireNonNull(observer);
-        this.observers.remove(observer);
-    }
-
-    @Override
-    public Integer getValue()
-    {
-        return this.value;
-    }
-
-    // Synchronize ?
-    @Override
-    public void tick()
-    {
-        this.value++;
-
-        for (ObserverDeCapteur observer : this.observers)
-        {
-            observer.update(this);
-        }
+        // TODO Auto-generated method stub
     }
 }

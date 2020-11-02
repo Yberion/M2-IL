@@ -21,16 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1.observer_de_capteur.impl;
+package fr.brandon.aoc.tp;
 
-import fr.brandon.aoc.tp1.capteur.api.Capteur;
-import fr.brandon.aoc.tp1.observer_de_capteur.api.ObserverDeCapteur;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class Afficheur implements ObserverDeCapteur
+import org.junit.jupiter.api.Test;
+
+class AppTest
 {
-    @Override
-    public void update(Capteur capteur)
+    @Test
+    void test()
     {
-        // TODO Auto-generated method stub
+        assertNotEquals("12", "10");
     }
 }

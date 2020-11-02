@@ -21,21 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1.algorithme_diffusion.impl;
+package fr.brandon.aoc.tp.canal.api;
 
-import fr.brandon.aoc.tp1.algorithme_diffusion.api.AlgorithmeDiffusion;
+import java.util.concurrent.Future;
 
-public class DiffusionSequentielle implements AlgorithmeDiffusion
+public interface CapteurAsync
 {
-    @Override
-    public void configure()
-    {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void execute()
-    {
-        // TODO Auto-generated method stub
-    }
+    Future<Integer> getValue();
 }

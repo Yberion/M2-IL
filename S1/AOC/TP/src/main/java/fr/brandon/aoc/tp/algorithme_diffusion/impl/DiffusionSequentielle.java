@@ -21,11 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1.algorithme_diffusion.impl;
+package fr.brandon.aoc.tp.algorithme_diffusion.impl;
 
-import fr.brandon.aoc.tp1.algorithme_diffusion.api.AlgorithmeDiffusion;
+import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
 
-public class DiffusionCausal implements AlgorithmeDiffusion
+public class DiffusionSequentielle implements AlgorithmeDiffusion
 {
     @Override
     public void configure()

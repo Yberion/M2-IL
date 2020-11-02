@@ -8,7 +8,7 @@ plugins {
     id 'distribution'
 
     // Spotless - keep your code spotless with Gradle
-    id "com.diffplug.spotless" version "5.6.1"
+    id "com.diffplug.spotless" version "5.7.0"
 
     id 'jacoco'
 }
@@ -39,13 +39,13 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
     // tinylog2 for logging
-    implementation 'org.tinylog:tinylog-api:2.1.2'
-    implementation 'org.tinylog:tinylog-impl:2.1.2'
+    implementation 'org.tinylog:tinylog-api:2.2.0'
+    implementation 'org.tinylog:tinylog-impl:2.2.0'
 }
 
 application {
     // Define the main class for the application.
-    mainClassName = 'fr.brandon.aoc.tp1.App'
+    mainClassName = 'fr.brandon.aoc.tp.App'
 }
 
 test {
@@ -54,14 +54,14 @@ test {
 
     jacoco {
         // Don't check the App that only contain the main()
-        excludes += [ 'fr/brandon/aoc/tp1/App' ]
+        excludes += [ 'fr/brandon/aoc/tp/App' ]
     }
 }
 
 jacocoTestReport {
     // Display everything except App
     classDirectories.setFrom(
-        fileTree(dir: 'build/classes/java/main/fr/brandon/aoc/tp1/')
+        fileTree(dir: 'build/classes/java/main/fr/brandon/aoc/tp/')
             .filter({file -> !file.name.equals('App.class')})
     )
 }

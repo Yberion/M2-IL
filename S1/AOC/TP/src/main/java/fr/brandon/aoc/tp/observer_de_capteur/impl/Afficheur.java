@@ -21,17 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1.canal.impl;
+package fr.brandon.aoc.tp.observer_de_capteur.impl;
 
-import fr.brandon.aoc.tp1.canal.api.CapteurAsync;
-import java.util.concurrent.Future;
+import fr.brandon.aoc.tp.capteur.api.Capteur;
+import fr.brandon.aoc.tp.observer_de_capteur.api.ObserverDeCapteur;
 
-public class Canal implements CapteurAsync
+public class Afficheur implements ObserverDeCapteur
 {
     @Override
-    public Future<Integer> getValue()
+    public void update(Capteur capteur)
     {
         // TODO Auto-generated method stub
-        return null;
     }
 }

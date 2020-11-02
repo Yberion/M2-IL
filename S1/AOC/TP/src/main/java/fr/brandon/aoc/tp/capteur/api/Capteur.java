@@ -21,17 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1;
+package fr.brandon.aoc.tp.capteur.api;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import fr.brandon.aoc.tp.observer_de_capteur.api.ObserverDeCapteur;
 
-import org.junit.jupiter.api.Test;
-
-class AppTest
+public interface Capteur
 {
-    @Test
-    void test()
-    {
-        assertNotEquals("12", "10");
-    }
+    void attach(ObserverDeCapteur observer);
+
+    void detach(ObserverDeCapteur observer);
+
+    Integer getValue();
+
+    void tick();
 }

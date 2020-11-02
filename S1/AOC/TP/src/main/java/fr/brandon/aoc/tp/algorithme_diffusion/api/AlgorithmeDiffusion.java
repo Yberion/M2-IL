@@ -21,17 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1.capteur.api;
+package fr.brandon.aoc.tp.algorithme_diffusion.api;
 
-import fr.brandon.aoc.tp1.observer_de_capteur.api.ObserverDeCapteur;
-
-public interface Capteur
+public interface AlgorithmeDiffusion
 {
-    void attach(ObserverDeCapteur observer);
+    void configure();
 
-    void detach(ObserverDeCapteur observer);
-
-    Integer getValue();
-
-    void tick();
+    void execute();
 }

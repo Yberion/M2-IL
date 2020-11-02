@@ -21,11 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package fr.brandon.aoc.tp1.canal.api;
+package fr.brandon.aoc.tp.canal.impl;
 
+import fr.brandon.aoc.tp.canal.api.CapteurAsync;
 import java.util.concurrent.Future;
 
-public interface CapteurAsync
+public class Canal implements CapteurAsync
 {
-    Future<Integer> getValue();
+    @Override
+    public Future<Integer> getValue()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
