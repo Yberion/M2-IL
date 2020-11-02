@@ -24,14 +24,26 @@
 package fr.brandon.aoc.tp.canal.impl;
 
 import fr.brandon.aoc.tp.canal.api.CapteurAsync;
+import fr.brandon.aoc.tp.capteur.api.Capteur;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class Canal implements CapteurAsync
 {
+    private ScheduledExecutorService scheduledExecutorService;
+
+    public Canal(ScheduledExecutorService scheduledExecutorService)
+    {
+        this.scheduledExecutorService = scheduledExecutorService;
+    }
+
+    void update(Capteur capteur)
+    {
+    }
+
     @Override
     public Future<Integer> getValue()
     {
-        // TODO Auto-generated method stub
         return null;
     }
 }

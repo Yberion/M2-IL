@@ -31,6 +31,5 @@ public class Afficheur implements ObserverDeCapteur
     @Override
     public void update(Capteur capteur)
     {
-        // TODO Auto-generated method stub
     }
 }

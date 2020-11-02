@@ -23,6 +23,7 @@
  */
 package fr.brandon.aoc.tp.capteur.impl;
 
+import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
 import fr.brandon.aoc.tp.capteur.api.Capteur;
 import fr.brandon.aoc.tp.observer_de_capteur.api.ObserverDeCapteur;
 import java.util.LinkedHashSet;
@@ -33,10 +34,12 @@ public class CapteurImpl implements Capteur
 {
     private Set<ObserverDeCapteur> observers;
     private Integer value;
+    private AlgorithmeDiffusion algorithmeDiffusion;
 
-    public CapteurImpl()
+    public CapteurImpl(AlgorithmeDiffusion algorithmeDiffusion)
     {
         this.observers = new LinkedHashSet<>();
+        this.algorithmeDiffusion = algorithmeDiffusion;
     }
 
     @Override
@@ -64,10 +67,12 @@ public class CapteurImpl implements Capteur
     public void tick()
     {
         this.value++;
-
-        for (ObserverDeCapteur observer : this.observers)
-        {
-            observer.update(this);
-        }
+        this.algorithmeDiffusion.execute();
+        /*
+         * for (ObserverDeCapteur observer : this.observers)
+         * {
+         * observer.update(this);
+         * }
+         */
     }
 }

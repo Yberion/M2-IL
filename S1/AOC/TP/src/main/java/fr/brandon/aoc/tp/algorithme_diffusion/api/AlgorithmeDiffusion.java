@@ -23,9 +23,12 @@
  */
 package fr.brandon.aoc.tp.algorithme_diffusion.api;
 
+import fr.brandon.aoc.tp.canal.api.CapteurAsync;
+import java.util.Set;
+
 public interface AlgorithmeDiffusion
 {
-    void configure();
+    void configure(Set<CapteurAsync> canaux);
 
     void execute();
 }
