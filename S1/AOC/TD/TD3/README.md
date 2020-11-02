@@ -84,6 +84,14 @@ Après arrêt de l'exécution (après une 100ène de tick par exemple) :
 
 ![M2 Diagramme de séquence 2A](./draw/M2_Diagram_Sequence_2A.svg)
 
+### (M3) Diagramme de classe Update
+
+![M3 Diagramme de classe Update](./draw/M3_Diagram_Class_Update.svg)
+
+### (M3) Diagramme de classe GetValue
+
+![M3 Diagramme de classe GetValue](./draw/M3_Diagram_Class_GetValue.svg)
+
 ### (M3) Diagramme de séquence 1
 
 ![M3 Diagramme de séquence 1](./draw/M3_Diagram_Sequence_1.svg)
