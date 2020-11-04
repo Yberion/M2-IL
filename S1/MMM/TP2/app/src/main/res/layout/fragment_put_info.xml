@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentPutInfo">
+
+    <Button
+        android:id="@+id/buttonValider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonValider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textNom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textNom" />
+
+        <EditText
+            android:id="@+id/editTextNom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/textEditHintVotre_nom"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textPrenom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textPrenom" />
+
+        <EditText
+            android:id="@+id/editTextPrenom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/textEditHintVotre_prenom"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textDateNaissance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textDate_de_naissance" />
+
+        <EditText
+            android:id="@+id/editTextDateNaissance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/textEditHintDate_de_naissance"
+            android:inputType="date" />
+
+        <TextView
+            android:id="@+id/textVilleNaissance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textNom_de_la_ville_de_naissance" />
+
+        <EditText
+            android:id="@+id/editTextVilleNaissance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/textEditHintVille_de_naissance"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textDepartement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textDepartement" />
+
+        <Spinner
+            android:id="@+id/spinnerDepartement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/departements" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
