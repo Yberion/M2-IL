@@ -16,7 +16,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import fr.brandon.mmm.tp2.databinding.FragmentPutInfoBinding;
 
@@ -28,7 +27,6 @@ public class FragmentPutInfo extends Fragment
     private OnFragmentPutInfoInteractionListener listener;
     private boolean phoneAdded;
     private EditText editTextPhone;
-    private FragmentInfoViewModel fragmentInfoViewModel;
 
     public FragmentPutInfo()
     {
@@ -45,8 +43,6 @@ public class FragmentPutInfo extends Fragment
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        this.fragmentInfoViewModel = new ViewModelProvider(this).get(FragmentInfoViewModel.class);
     }
 
     @Override

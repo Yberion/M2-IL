@@ -1,16 +1,34 @@
-package fr.brandon.mmm.tp2;
+package fr.brandon.mmm.tp2.model;
 
-import androidx.lifecycle.ViewModel;
-
-public class FragmentInfoViewModel extends ViewModel
+public class Utilisateur
 {
+    private long id;
     private String nom;
     private String prenom;
     private String dateNaissance;
     private String ville;
-    private String departement;
-    private String numero;
-    private boolean phoneCreated;
+
+    public Utilisateur()
+    {
+    }
+
+    public Utilisateur(String nom, String prenom, String dateNaissance, String ville)
+    {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.ville = ville;
+    }
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
+    }
 
     public String getNom()
     {
@@ -50,35 +68,5 @@ public class FragmentInfoViewModel extends ViewModel
     public void setVille(String ville)
     {
         this.ville = ville;
-    }
-
-    public String getDepartement()
-    {
-        return departement;
-    }
-
-    public void setDepartement(String departement)
-    {
-        this.departement = departement;
-    }
-
-    public String getNumero()
-    {
-        return numero;
-    }
-
-    public void setNumero(String numero)
-    {
-        this.numero = numero;
-    }
-
-    public boolean isPhoneCreated()
-    {
-        return phoneCreated;
-    }
-
-    public void setPhoneCreated(boolean phoneCreated)
-    {
-        this.phoneCreated = phoneCreated;
     }
 }

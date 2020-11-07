@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import fr.brandon.mmm.tp2.databinding.FragmentDisplayInfoBinding;
 
@@ -18,7 +17,6 @@ public class FragmentDisplayInfo extends Fragment
 {
     private FragmentDisplayInfoBinding binding;
     private OnFragmentDisplayInfoInteractionListener listener;
-    private FragmentInfoViewModel fragmentInfoViewModel;
 
     public FragmentDisplayInfo()
     {
@@ -34,8 +32,6 @@ public class FragmentDisplayInfo extends Fragment
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-        this.fragmentInfoViewModel = new ViewModelProvider(this).get(FragmentInfoViewModel.class);
     }
 
     @Override

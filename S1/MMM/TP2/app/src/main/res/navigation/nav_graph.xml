@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentPutInfo">
+    app:startDestination="@id/recyclerViewUser">
 
     <fragment
         android:id="@+id/fragmentPutInfo"
@@ -11,16 +11,21 @@
         android:label="fragment_put_info"
         tools:layout="@layout/fragment_put_info">
         <action
-            android:id="@+id/action_fragmentPutInfo_to_fragmentDisplayInfo"
-            app:destination="@id/fragmentDisplayInfo" />
+            android:id="@+id/action_fragmentPutInfo_to_recyclerViewUser"
+            app:destination="@id/recyclerViewUser" />
     </fragment>
     <fragment
         android:id="@+id/fragmentDisplayInfo"
         android:name="fr.brandon.mmm.tp2.FragmentDisplayInfo"
         android:label="fragment_display_info"
-        tools:layout="@layout/fragment_display_info">
+        tools:layout="@layout/fragment_display_info" />
+    <fragment
+        android:id="@+id/recyclerViewUser"
+        android:name="fr.brandon.mmm.tp2.FragmentRecyclerViewUser"
+        android:label="fragment_recycler_view_user"
+        tools:layout="@layout/fragment_recycler_view_user">
         <action
-            android:id="@+id/action_fragmentDisplayInfo_to_fragmentPutInfo"
+            android:id="@+id/action_recyclerViewUser_to_fragmentPutInfo"
             app:destination="@id/fragmentPutInfo" />
     </fragment>
 </navigation>

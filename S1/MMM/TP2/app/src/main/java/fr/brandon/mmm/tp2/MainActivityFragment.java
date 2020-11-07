@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-public class MainActivityFragment extends AppCompatActivity implements FragmentPutInfo.OnFragmentPutInfoInteractionListener, FragmentDisplayInfo.OnFragmentDisplayInfoInteractionListener
+public class MainActivityFragment extends AppCompatActivity implements FragmentPutInfo.OnFragmentPutInfoInteractionListener, FragmentRecyclerViewUser.OnFragmentRecyclerViewUserInteractionListener
 {
     private NavController navController;
 
@@ -24,12 +24,12 @@ public class MainActivityFragment extends AppCompatActivity implements FragmentP
     @Override
     public void onFragmentPutInfoInteractionListener(Uri uri)
     {
-        this.navController.navigate(R.id.action_fragmentPutInfo_to_fragmentDisplayInfo);
+        this.navController.navigate(R.id.action_fragmentPutInfo_to_recyclerViewUser);
     }
 
     @Override
-    public void onFragmentDisplayInfoInteractionListener(Uri uri)
+    public void onFragmentRecyclerViewUserInteractionListener(Uri uri)
     {
-        this.navController.navigate(R.id.action_fragmentDisplayInfo_to_fragmentPutInfo);
+        this.navController.navigate(R.id.action_recyclerViewUser_to_fragmentPutInfo);
     }
 }

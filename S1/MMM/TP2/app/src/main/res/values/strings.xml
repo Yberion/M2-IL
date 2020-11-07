@@ -20,6 +20,8 @@
     <string name="A2textViewShowDateNaissance">Date de naissance</string>
     <string name="A2textViewShowVille">Ville</string>
     <string name="buttonRetour">Retour</string>
+    <string name="BoutonNouveauUtilisateur">Nouveau utilisateur</string>
+    <string name="avatar">Avatar</string>
 
     <string-array name="departements">
         <item>Ain</item>
