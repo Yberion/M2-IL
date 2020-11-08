@@ -29,7 +29,7 @@ public class FragmentPutInfo extends Fragment
     private OnFragmentPutInfoInteractionListener listener;
     private boolean phoneAdded;
     private EditText editTextPhone;
-    private FragmentInfoViewModel fragmentInfoViewModel;
+    private UtilisateurViewModel utilisateurViewModel;
 
     public FragmentPutInfo()
     {
@@ -46,8 +46,6 @@ public class FragmentPutInfo extends Fragment
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        this.fragmentInfoViewModel = new ViewModelProvider(this).get(FragmentInfoViewModel.class);
     }
 
     @Override
@@ -63,6 +61,14 @@ public class FragmentPutInfo extends Fragment
         });
 
         return viewPutInfo;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
+        super.onViewCreated(view, savedInstanceState);
+
+        this.utilisateurViewModel = new ViewModelProvider(requireActivity()).get(UtilisateurViewModel.class);
     }
 
     @Override
@@ -99,6 +105,11 @@ public class FragmentPutInfo extends Fragment
     {
         if (this.listener != null)
         {
+            this.utilisateurViewModel.setUtilisateur(new Utilisateur(
+                    this.binding.editTextNom.getText().toString(),
+                    this.binding.editTextPrenom.getText().toString(),
+                    this.binding.editTextVilleNaissance.getText().toString(),
+                    this.binding.editTextDateNaissance.getText().toString()));
             this.listener.onFragmentPutInfoInteractionListener(uri);
         }
     }

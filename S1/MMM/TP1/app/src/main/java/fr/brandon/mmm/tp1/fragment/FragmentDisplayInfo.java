@@ -18,7 +18,6 @@ public class FragmentDisplayInfo extends Fragment
 {
     private FragmentDisplayInfoBinding binding;
     private OnFragmentDisplayInfoInteractionListener listener;
-    private FragmentInfoViewModel fragmentInfoViewModel;
 
     public FragmentDisplayInfo()
     {
@@ -34,8 +33,6 @@ public class FragmentDisplayInfo extends Fragment
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-        this.fragmentInfoViewModel = new ViewModelProvider(this).get(FragmentInfoViewModel.class);
     }
 
     @Override
@@ -51,6 +48,21 @@ public class FragmentDisplayInfo extends Fragment
         });
 
         return viewPutInfo;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
+        super.onViewCreated(view, savedInstanceState);
+
+        UtilisateurViewModel utilisateurViewModel = new ViewModelProvider(requireActivity()).get(UtilisateurViewModel.class);
+
+        utilisateurViewModel.getUtilisateur().observe(getViewLifecycleOwner(), utilisateur -> {
+            this.binding.textViewShowNom.setText(utilisateur.getNom());
+            this.binding.textViewShowPrenom.setText(utilisateur.getPrenom());
+            this.binding.textViewShowVille.setText(utilisateur.getVille());
+            this.binding.textViewShowDateNaissance.setText(utilisateur.getDateNaissance());
+        });
     }
 
     @Override
