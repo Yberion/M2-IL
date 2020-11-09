@@ -43,6 +43,11 @@ public class UtilisateurAdapter extends RecyclerView.Adapter<UtilisateurViewHold
         notifyDataSetChanged();
     }
 
+    public Utilisateur getUtilisateurAt(int index)
+    {
+        return this.utilisateurs.get(index);
+    }
+
     @NonNull
     @Override
     public UtilisateurViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)

@@ -48,7 +48,7 @@ public class FragmentRecyclerViewUser extends Fragment
         this.utilisateurAdapter = new UtilisateurAdapter();
 
         // Just for the first time it's loaded
-        populateUser();
+        //populateUser();
     }
 
     private void populateUser()
@@ -71,22 +71,6 @@ public class FragmentRecyclerViewUser extends Fragment
 
         this.binding.RecyclerViewUtilisateur.setAdapter(utilisateurAdapter);
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT)
-        {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
-            {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
-            {
-                utilisateurAdapter.removeUtilisateurAt(viewHolder.getAdapterPosition());
-                Toast.makeText(getActivity().getBaseContext(), "User deleted", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(this.binding.RecyclerViewUtilisateur);
-
         this.binding.buttonAddUser.setOnClickListener(view ->
         {
             onButtonAddUserPressed(null);
@@ -106,6 +90,23 @@ public class FragmentRecyclerViewUser extends Fragment
         {
             this.utilisateurAdapter.setUtilisateurs(utilisateurs);
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT)
+        {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
+            {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
+            {
+                //utilisateurAdapter.removeUtilisateurAt(viewHolder.getAdapterPosition());
+                utilisateurViewModel.delete(utilisateurAdapter.getUtilisateurAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(getActivity().getBaseContext(), "User deleted", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(this.binding.RecyclerViewUtilisateur);
     }
 
     @Override
@@ -136,13 +137,14 @@ public class FragmentRecyclerViewUser extends Fragment
         super.onDestroyView();
         this.binding = null;
         this.utilisateurAdapter = null;
+        this.utilisateurViewModel = null;
     }
 
     private void onButtonAddUserPressed(Uri uri)
     {
         if (this.listener != null)
         {
-            this.utilisateurViewModel.setUtilisateur(this.utilisateurAdapter.getUtilisateurs());
+            //this.utilisateurViewModel.setUtilisateur(this.utilisateurAdapter.getUtilisateurs());
             this.listener.onFragmentRecyclerViewUserInteractionListener(uri);
         }
     }

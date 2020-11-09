@@ -74,10 +74,12 @@ public class FragmentPutInfo extends Fragment
 
         this.utilisateurViewModel = new ViewModelProvider(requireActivity()).get(UtilisateurViewModel.class);
 
+        /*
         utilisateurViewModel.getUtilisateurs().observe(getViewLifecycleOwner(), utilisateurs ->
         {
             utilisateurList = utilisateurs;
         });
+        */
     }
 
     @Override
@@ -108,15 +110,18 @@ public class FragmentPutInfo extends Fragment
         super.onDestroyView();
         this.binding = null;
         this.editTextPhone = null;
+        this.utilisateurViewModel = null;
+        this.utilisateurList = null;
     }
 
     private void onButtonPressedValider(Uri uri)
     {
         if (this.listener != null)
         {
-            this.utilisateurList.add(new Utilisateur(this.binding.editTextNom.getText().toString(), this.binding.editTextPrenom.getText().toString(), this.binding.editTextVilleNaissance.getText().toString(), this.binding.editTextDateNaissance.getText().toString()));
+            //this.utilisateurViewModel.getUtilisateurs().getValue().add(new Utilisateur(this.binding.editTextNom.getText().toString(), this.binding.editTextPrenom.getText().toString(), this.binding.editTextVilleNaissance.getText().toString(), this.binding.editTextDateNaissance.getText().toString()));
+            this.utilisateurViewModel.insert(new Utilisateur(this.binding.editTextNom.getText().toString(), this.binding.editTextPrenom.getText().toString(), this.binding.editTextVilleNaissance.getText().toString(), this.binding.editTextDateNaissance.getText().toString()));
 
-            this.utilisateurViewModel.setUtilisateur(this.utilisateurList);
+            //this.utilisateurViewModel.setUtilisateur(this.utilisateurList);
 
             this.listener.onFragmentPutInfoInteractionListener(uri);
         }
