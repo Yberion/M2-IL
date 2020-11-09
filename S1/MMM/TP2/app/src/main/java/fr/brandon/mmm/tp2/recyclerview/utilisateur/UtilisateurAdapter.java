@@ -26,9 +26,21 @@ public class UtilisateurAdapter extends RecyclerView.Adapter<UtilisateurViewHold
         this.utilisateurs = utilisateurs;
     }
 
-    public void updateUtilisateurs(List<Utilisateur> utilisateurs)
+    public void removeUtilisateurAt(int index)
+    {
+        this.utilisateurs.remove(index);
+        notifyDataSetChanged();
+    }
+
+    public List<Utilisateur> getUtilisateurs()
+    {
+        return this.utilisateurs;
+    }
+
+    public void setUtilisateurs(List<Utilisateur> utilisateurs)
     {
         this.utilisateurs = utilisateurs;
+        notifyDataSetChanged();
     }
 
     @NonNull
