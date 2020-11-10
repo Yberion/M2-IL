@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">tp3</string>
+    <string name="textNom">Nom</string>
+    <string name="textPrenom">Prénom</string>
+    <string name="textDate_de_naissance">Date de naissance</string>
+    <string name="textNom_de_la_ville_de_naissance">Nom de la ville de naissance</string>
+    <string name="textPhone">Numéro de téléphone</string>
+    <string name="textDepartement">Département</string>
+    <string name="textEditHintVotre_nom">Votre nom</string>
+    <string name="textEditHintVotre_prenom">Votre prénom</string>
+    <string name="textEditHintDate_de_naissance">Date de naissance</string>
+    <string name="textEditHintVille_de_naissance">Ville de naissance</string>
+    <string name="textEditHintVotre_phone">Votre numéro</string>
+    <string name="buttonValider">Valider</string>
+    <string name="menuReset_infos">Réinitialiser</string>
+    <string name="menuAdd_phone">Ajout champ téléphone</string>
+    <string name="menuNavigateur">Navigateur (ville)</string>
+    <string name="A2textViewShowNom">Nom</string>
+    <string name="A2textViewShowPrenom">Prénom</string>
+    <string name="A2textViewShowDateNaissance">Date de naissance</string>
+    <string name="A2textViewShowVille">Ville</string>
+    <string name="buttonRetour">Retour</string>
+    <string name="BoutonNouveauUtilisateur">Nouveau utilisateur</string>
+    <string name="avatar">Avatar</string>
+
+    <string-array name="departements">
+        <item>Ain</item>
+        <item>Aisne</item>
+        <item>Allier</item>
+        <item>Hautes-Alpes</item>
+    </string-array>
+</resources>

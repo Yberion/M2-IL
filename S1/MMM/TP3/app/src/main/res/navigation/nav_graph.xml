@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/recyclerViewUser">
+
+    <fragment
+        android:id="@+id/fragmentPutInfo"
+        android:name="fr.brandon.mmm.tp3.FragmentPutInfo"
+        android:label="fragment_put_info"
+        tools:layout="@layout/fragment_put_info">
+        <action
+            android:id="@+id/action_fragmentPutInfo_to_recyclerViewUser"
+            app:destination="@id/recyclerViewUser" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentDisplayInfo"
+        android:name="fr.brandon.mmm.tp3.FragmentDisplayInfo"
+        android:label="fragment_display_info"
+        tools:layout="@layout/fragment_display_info" />
+    <fragment
+        android:id="@+id/recyclerViewUser"
+        android:name="fr.brandon.mmm.tp3.FragmentRecyclerViewUser"
+        android:label="fragment_recycler_view_user"
+        tools:layout="@layout/fragment_recycler_view_user">
+        <action
+            android:id="@+id/action_recyclerViewUser_to_fragmentPutInfo"
+            app:destination="@id/fragmentPutInfo" />
+    </fragment>
+</navigation>
