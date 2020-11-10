@@ -4,48 +4,18 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import fr.brandon.mmm.tp3.databinding.RecyclerViewUserItemBinding;
 import fr.brandon.mmm.tp3.model.Utilisateur;
 
-public class UtilisateurAdapter extends RecyclerView.Adapter<UtilisateurViewHolder>
+public class UtilisateurAdapter extends FirestoreRecyclerAdapter<Utilisateur, UtilisateurViewHolder>
 {
-    private List<Utilisateur> utilisateurs;
-
-    public UtilisateurAdapter()
+    public UtilisateurAdapter(@NonNull FirestoreRecyclerOptions<Utilisateur> options)
     {
-        this.utilisateurs = new ArrayList<>();
-    }
-
-    public UtilisateurAdapter(List<Utilisateur> utilisateurs)
-    {
-        this.utilisateurs = utilisateurs;
-    }
-
-    public void removeUtilisateurAt(int index)
-    {
-        this.utilisateurs.remove(index);
-        notifyDataSetChanged();
-    }
-
-    public List<Utilisateur> getUtilisateurs()
-    {
-        return this.utilisateurs;
-    }
-
-    public void setUtilisateurs(List<Utilisateur> utilisateurs)
-    {
-        this.utilisateurs = utilisateurs;
-        notifyDataSetChanged();
-    }
-
-    public Utilisateur getUtilisateurAt(int index)
-    {
-        return this.utilisateurs.get(index);
+        super(options);
     }
 
     @NonNull
@@ -59,16 +29,13 @@ public class UtilisateurAdapter extends RecyclerView.Adapter<UtilisateurViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UtilisateurViewHolder holder, int position)
+    protected void onBindViewHolder(@NonNull UtilisateurViewHolder holder, int position, @NonNull Utilisateur model)
     {
-        Utilisateur utilisateur = this.utilisateurs.get(position);
-
-        holder.updateWithUtilisateur(utilisateur);
+        holder.updateWithUtilisateur(model);
     }
 
-    @Override
-    public int getItemCount()
+    public void deleteUsertAt(int adapterPosition)
     {
-        return this.utilisateurs.size();
+        getSnapshots().getSnapshot(adapterPosition).getReference().delete();
     }
 }

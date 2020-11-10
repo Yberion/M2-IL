@@ -1,9 +1,13 @@
 package fr.brandon.mmm.tp3;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -11,63 +15,57 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import fr.brandon.mmm.tp3.databinding.FragmentRecyclerViewUserBinding;
 import fr.brandon.mmm.tp3.model.Utilisateur;
 import fr.brandon.mmm.tp3.recyclerview.utilisateur.UtilisateurAdapter;
-import fr.brandon.mmm.tp3.viewmodel.utilisateur.UtilisateurViewModel;
 
+// FirestoreRecyclerAdapter: https://www.youtube.com/watch?v=cBwaJYocb9I
+// Paging: https://www.youtube.com/watch?v=LatlcDZhpd4
+// The FirebaseUI paging adapter does not use real-time listeners. According to the documentation:
+// So you'll have to choose: either you can have real-time updates, or you can have pagination, but you can't have both with the adapters that come with FirebaseUI.
+//
+// Another Playlist: https://www.youtube.com/watch?v=ub6mNHWGVHw&list=PLrnPJCHvNZuAXdWxOzsN5rgG2M4uJ8bH1
 public class FragmentRecyclerViewUser extends Fragment
 {
     private OnFragmentRecyclerViewUserInteractionListener listener;
     private FragmentRecyclerViewUserBinding binding;
     private UtilisateurAdapter utilisateurAdapter;
-    private UtilisateurViewModel utilisateurViewModel;
+    private FirebaseFirestore firebaseFirestore;
 
     public FragmentRecyclerViewUser()
     {
         // Required empty public constructor
     }
 
-    public static FragmentRecyclerViewUser newInstance()
-    {
-        return new FragmentRecyclerViewUser();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
-        this.utilisateurAdapter = new UtilisateurAdapter();
+        this.firebaseFirestore = FirebaseFirestore.getInstance();
 
-        // Just for the first time it's loaded
-        //populateUser();
-    }
+        CollectionReference query = this.firebaseFirestore.collection("utilisateurs");
 
-    private void populateUser()
-    {
-        List<Utilisateur> utilisateurs = new ArrayList<>();
+        FirestoreRecyclerOptions<Utilisateur> utilisateurs = new FirestoreRecyclerOptions.Builder<Utilisateur>().setQuery(query, Utilisateur.class).setLifecycleOwner(this).build();
 
-        utilisateurs.add(new Utilisateur("Nom1", "Prénom1", "01/01/1901", "Ville1"));
-        utilisateurs.add(new Utilisateur("Nom2", "Prénom2", "01/01/1902", "Ville2"));
-        utilisateurs.add(new Utilisateur("Nom3", "Prénom3", "01/01/1903", "Ville3"));
-
-        this.utilisateurAdapter.setUtilisateurs(utilisateurs);
+        this.utilisateurAdapter = new UtilisateurAdapter(utilisateurs);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         this.binding = FragmentRecyclerViewUserBinding.inflate(inflater, container, false);
-
-        View viewRecyclerViewUser = this.binding.getRoot();
 
         this.binding.RecyclerViewUtilisateur.setAdapter(utilisateurAdapter);
 
@@ -76,7 +74,7 @@ public class FragmentRecyclerViewUser extends Fragment
             onButtonAddUserPressed(null);
         });
 
-        return viewRecyclerViewUser;
+        return this.binding.getRoot();
     }
 
     @Override
@@ -84,29 +82,58 @@ public class FragmentRecyclerViewUser extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
 
-        this.utilisateurViewModel = new ViewModelProvider(requireActivity()).get(UtilisateurViewModel.class);
-
-        utilisateurViewModel.getUtilisateurs().observe(getViewLifecycleOwner(), utilisateurs ->
-        {
-            this.utilisateurAdapter.setUtilisateurs(utilisateurs);
-        });
-
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT)
         {
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target)
             {
                 return false;
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
             {
-                //utilisateurAdapter.removeUtilisateurAt(viewHolder.getAdapterPosition());
-                utilisateurViewModel.delete(utilisateurAdapter.getUtilisateurAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(getActivity().getBaseContext(), "User deleted", Toast.LENGTH_SHORT).show();
+                utilisateurAdapter.deleteUsertAt(viewHolder.getAdapterPosition());
+                Toast.makeText(requireActivity().getBaseContext(), "User deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(this.binding.RecyclerViewUtilisateur);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_signout, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menuSignout)
+        {
+            signout();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void signout()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null)
+        {
+            AuthUI.getInstance().signOut(getActivity().getBaseContext()).addOnCompleteListener(task ->
+            {
+                Toast.makeText(getActivity().getBaseContext(), "Logged out " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity().getBaseContext(), ActivityAuth.class);
+                startActivity(intent);
+                getActivity().finish();
+            });
+        }
     }
 
     @Override
@@ -124,6 +151,22 @@ public class FragmentRecyclerViewUser extends Fragment
         }
     }
 
+    /*
+    //Plus besoin grâce au ".setLifecycleOwner(this)" sur le FirestoreRecyclerAdapter
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        this.utilisateurAdapter.startListening();
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        this.utilisateurAdapter.stopListening();
+    }
+    */
     @Override
     public void onDetach()
     {
@@ -136,15 +179,12 @@ public class FragmentRecyclerViewUser extends Fragment
     {
         super.onDestroyView();
         this.binding = null;
-        this.utilisateurAdapter = null;
-        this.utilisateurViewModel = null;
     }
 
     private void onButtonAddUserPressed(Uri uri)
     {
         if (this.listener != null)
         {
-            //this.utilisateurViewModel.setUtilisateur(this.utilisateurAdapter.getUtilisateurs());
             this.listener.onFragmentRecyclerViewUserInteractionListener(uri);
         }
     }

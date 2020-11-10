@@ -16,13 +16,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import java.util.List;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import fr.brandon.mmm.tp3.databinding.FragmentPutInfoBinding;
 import fr.brandon.mmm.tp3.model.Utilisateur;
-import fr.brandon.mmm.tp3.viewmodel.utilisateur.UtilisateurViewModel;
 
 import static android.text.InputType.TYPE_CLASS_PHONE;
 
@@ -32,8 +31,6 @@ public class FragmentPutInfo extends Fragment
     private OnFragmentPutInfoInteractionListener listener;
     private boolean phoneAdded;
     private EditText editTextPhone;
-    private UtilisateurViewModel utilisateurViewModel;
-    private List<Utilisateur> utilisateurList;
 
     public FragmentPutInfo()
     {
@@ -71,15 +68,6 @@ public class FragmentPutInfo extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
-
-        this.utilisateurViewModel = new ViewModelProvider(requireActivity()).get(UtilisateurViewModel.class);
-
-        /*
-        utilisateurViewModel.getUtilisateurs().observe(getViewLifecycleOwner(), utilisateurs ->
-        {
-            utilisateurList = utilisateurs;
-        });
-        */
     }
 
     @Override
@@ -110,19 +98,14 @@ public class FragmentPutInfo extends Fragment
         super.onDestroyView();
         this.binding = null;
         this.editTextPhone = null;
-        this.utilisateurViewModel = null;
-        this.utilisateurList = null;
     }
 
     private void onButtonPressedValider(Uri uri)
     {
         if (this.listener != null)
         {
-            //this.utilisateurViewModel.getUtilisateurs().getValue().add(new Utilisateur(this.binding.editTextNom.getText().toString(), this.binding.editTextPrenom.getText().toString(), this.binding.editTextVilleNaissance.getText().toString(), this.binding.editTextDateNaissance.getText().toString()));
-            this.utilisateurViewModel.insert(new Utilisateur(this.binding.editTextNom.getText().toString(), this.binding.editTextPrenom.getText().toString(), this.binding.editTextVilleNaissance.getText().toString(), this.binding.editTextDateNaissance.getText().toString()));
-
-            //this.utilisateurViewModel.setUtilisateur(this.utilisateurList);
-
+            CollectionReference utilisateurRef = FirebaseFirestore.getInstance().collection("utilisateurs");
+            utilisateurRef.add(new Utilisateur(this.binding.editTextNom.getText().toString(), this.binding.editTextPrenom.getText().toString(), this.binding.editTextVilleNaissance.getText().toString(), this.binding.editTextDateNaissance.getText().toString()));
             this.listener.onFragmentPutInfoInteractionListener(uri);
         }
     }

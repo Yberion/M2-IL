@@ -15,6 +15,7 @@
     <string name="menuReset_infos">Réinitialiser</string>
     <string name="menuAdd_phone">Ajout champ téléphone</string>
     <string name="menuNavigateur">Navigateur (ville)</string>
+    <string name="menuSignout">Déconnexion</string>
     <string name="A2textViewShowNom">Nom</string>
     <string name="A2textViewShowPrenom">Prénom</string>
     <string name="A2textViewShowDateNaissance">Date de naissance</string>
@@ -29,4 +30,6 @@
         <item>Allier</item>
         <item>Hautes-Alpes</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

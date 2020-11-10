@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-public class MainActivityFragment extends AppCompatActivity implements FragmentPutInfo.OnFragmentPutInfoInteractionListener, FragmentRecyclerViewUser.OnFragmentRecyclerViewUserInteractionListener
+public class ActivityNavigationFragment extends AppCompatActivity implements FragmentPutInfo.OnFragmentPutInfoInteractionListener, FragmentRecyclerViewUser.OnFragmentRecyclerViewUserInteractionListener
 {
     private NavController navController;
 
@@ -16,7 +16,7 @@ public class MainActivityFragment extends AppCompatActivity implements FragmentP
     {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.main_activity_fragment);
+        setContentView(R.layout.activity_navigation_fragment);
 
         this.navController = Navigation.findNavController(this, R.id.nav_host_fragment);
     }
