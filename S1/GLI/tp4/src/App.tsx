@@ -1,7 +1,7 @@
 import React from "react";
 import BeerList from "./BeerList";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // https://fettblog.eu/typescript-react-component-patterns/
 // https://www.sitepoint.com/react-with-typescript-best-practices/
