@@ -167,6 +167,7 @@ public class FragmentRecyclerViewUser extends Fragment
         this.utilisateurAdapter.stopListening();
     }
     */
+
     @Override
     public void onDetach()
     {

@@ -1,11 +1,15 @@
 package fr.brandon.mmm.tp3;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ActivityNavigationFragment extends AppCompatActivity implements FragmentPutInfo.OnFragmentPutInfoInteractionListener, FragmentRecyclerViewUser.OnFragmentRecyclerViewUserInteractionListener
 {
@@ -15,6 +19,13 @@ public class ActivityNavigationFragment extends AppCompatActivity implements Fra
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null)
+        {
+            Intent intent = new Intent(ActivityNavigationFragment.this, ActivityAuth.class);
+            startActivity(intent);
+            finish();
+        }
 
         setContentView(R.layout.activity_navigation_fragment);
 
