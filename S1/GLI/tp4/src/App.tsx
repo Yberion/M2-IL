@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import BeerList from "./BeerList";
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-function App() {
-  return (
+// https://fettblog.eu/typescript-react-component-patterns/
+// https://www.sitepoint.com/react-with-typescript-best-practices/
+// https://www.pluralsight.com/guides/react-communicating-between-components
+// https://www.youtube.com/watch?v=no82oluCZag
+// https://www.youtube.com/watch?v=LuxYWWB3_Qc&t=1294s
+// https://www.youtube.com/watch?v=AhnPjl5rovQ
+
+const App = () => (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <BeerList />
+        <Link to="/about">About</Link>
     </div>
-  );
-}
+);
 
 export default App;
