@@ -1,4 +1,4 @@
-package fr.brandon.mmm.flutter_tp1
+package fr.brandon.mmm.tp1_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 

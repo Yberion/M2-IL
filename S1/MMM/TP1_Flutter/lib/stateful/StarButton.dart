@@ -21,7 +21,7 @@ class _StarButtonState extends State<StarButton> {
     this._starValue = widget.defaultStarValue;
   }
 
-  void toggleStar() {
+  void _toggleStar() {
     if (_starToggled) {
       setState(() {
         this._starValue--;
@@ -43,7 +43,7 @@ class _StarButtonState extends State<StarButton> {
       children: [
         IconButton(
           icon: Icon(_starIcon, color: Colors.deepOrange),
-          onPressed: toggleStar,
+          onPressed: _toggleStar,
         ),
         Text('$_starValue'),
       ],

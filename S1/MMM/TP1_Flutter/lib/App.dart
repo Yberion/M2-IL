@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tp1/stateful/StarButton.dart';
-import 'package:flutter_tp1/stateless/IconButtonColoredText.dart';
+import 'package:tp1_flutter/stateful/StarButton.dart';
+import 'package:tp1_flutter/stateless/IconButtonColoredText.dart';
 
 class App extends StatelessWidget {
   final Container header = Container(

@@ -1,4 +1,4 @@
-# flutter_tp1
+# TP1 Flutter
 
 A new Flutter application.
 
