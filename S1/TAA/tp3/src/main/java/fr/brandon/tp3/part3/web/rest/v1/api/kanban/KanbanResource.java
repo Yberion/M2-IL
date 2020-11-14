@@ -46,8 +46,8 @@ public class KanbanResource
         }
         return new KanbanDTO();
     }
-    
-    @GetMapping("/get/")
+
+    @GetMapping("/get")
     @ResponseBody // Return Kanban formated to JSON
     public List<KanbanDTO> getAllKanban()
     {
@@ -62,7 +62,7 @@ public class KanbanResource
 
     @PostMapping("/add")
     @ResponseBody
-    public String addKanban(@RequestBody KanbanDTO kanbanDTO)
+    public KanbanDTO addKanban(@RequestBody KanbanDTO kanbanDTO)
     {
         Kanban kanban = kanbanMapper.toKanban(kanbanDTO);
 
@@ -74,8 +74,8 @@ public class KanbanResource
                 section.setKanban(kanban);
             }
         }
-        kanbanRepository.save(kanban);
-        return "Kanban added";
+        Kanban kanbanWithId = kanbanRepository.save(kanban);
+        return kanbanMapper.toKanbanDTO(kanbanWithId);
     }
 
     @PutMapping("/update/{id}")
