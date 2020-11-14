@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# TP5 Intégration backend/frontend
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -10,7 +10,7 @@ First run:
 
 In the project directory, you can run:
 
-Start the Spring boot project from the ![TAA TP3](../../TAA/tp3#part-3).
+Start the Spring boot project from the [TAA TP3](../../TAA/tp3#part-3).
 
 ### `npm start`
 

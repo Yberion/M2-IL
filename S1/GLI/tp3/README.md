@@ -1,4 +1,4 @@
-# tp3
+# TP3 VueJS
 
 ## Project setup
 ```
