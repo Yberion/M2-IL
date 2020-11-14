@@ -1,5 +1,7 @@
 package fr.brandon.tp3.part3.service.mapper.kanban;
 
+import java.util.List;
+
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,6 +23,8 @@ public interface KanbanMapper
 
     @InheritInverseConfiguration(name = "toKanban")
     KanbanDTO toKanbanDTO(Kanban kanban);
+
+    List<KanbanDTO> toKanbanDTO(List<Kanban> kanban);
 
     @Mapping(target = "id", ignore = true)
     Kanban updateKanbanFromDTO(KanbanDTO kanbanDTO, @MappingTarget Kanban kanban);

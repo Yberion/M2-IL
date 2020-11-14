@@ -76,11 +76,15 @@ Only Rest access for ``Kanban`` and ``Section`` are created.
 
 You can add, get, update and delete.
 
+You can use ``swagger-ui`` or ``Postman`` to test it out.
+
 ##### Test Rest
 
 **Kanban**
 
 Add a kanban with 2 sections associated to this kanban (cascade persist).
+
+<http://localhost:8080/api/v1/kanban/add>
 
 ```json
 {
@@ -99,6 +103,8 @@ Add a kanban with 2 sections associated to this kanban (cascade persist).
 ```
 
 Get the newly created kanban with ``id = 1``, result:
+
+<http://localhost:8080/api/v1/kanban/get/1>
 
 ```json
 {
@@ -122,6 +128,8 @@ Get the newly created kanban with ``id = 1``, result:
 ```
 
 Put (update) the name of ``kanban1`` to ``kanban15``, ``id = 1``:
+
+<http://localhost:8080/api/v1/kanban/update/1>
 
 ```json
 {
@@ -154,11 +162,15 @@ result:
 
 Delete a kanban with ``id = 1``:
 
+<http://localhost:8080/api/v1/kanban/delete/1>
+
 ``Kanban removed``
 
 **Section**
 
 Create a kanban without section (use the correct id since it's auto generated, in my test this one has ``id 4``):
+
+<http://localhost:8080/api/v1/kanban/add>
 
 ```json
 {
@@ -169,6 +181,8 @@ Create a kanban without section (use the correct id since it's auto generated, i
 
 Add a section:
 
+<http://localhost:8080/api/v1/section/add>
+
 ```json
 {
   "cartes": [],
@@ -177,6 +191,8 @@ Add a section:
 ```
 
 Get the newly created section (find the good id, in my test ``id 5``), result (0 mean not associated to a kanban):
+
+<http://localhost:8080/api/v1/section/get/5>
 
 ```json
 {
@@ -187,7 +203,9 @@ Get the newly created section (find the good id, in my test ``id 5``), result (0
 }
 ```
 
-Put (update) the name of ``section50`` to ``section999`` and we associate it to a kanban (``id 4``), ``id = 5`` (same id as above):
+Put (update) the name of ``section50`` to ``section999`` and we associate it to a kanban (``id 4``), ``id = 5`` (same section id as above):
+
+<http://localhost:8080/api/v1/section/update/5>
 
 ```json
 {
@@ -198,6 +216,8 @@ Put (update) the name of ``section50`` to ``section999`` and we associate it to 
 
 result:
 
+<http://localhost:8080/api/v1/section/get/5>
+
 ```json
 {
   "id": 5,
@@ -207,7 +227,9 @@ result:
 }
 ```
 
-We can check by doing a Get on kanban ``id 4``:
+We can check that the section is affected on the kanban by doing a Get on kanban ``id 4``:
+
+<http://localhost:8080/api/v1/kanban/get/4>
 
 ```json
 {
@@ -226,9 +248,13 @@ We can check by doing a Get on kanban ``id 4``:
 
 Delete a section with ``id = 5``:
 
+<http://localhost:8080/api/v1/kanban/delete/5>
+
 ``Section removed``
 
-Which give when getting kanban ``id 4``:
+Which gives when getting kanban ``id 4``:
+
+<http://localhost:8080/api/v1/kanban/get/4>
 
 ```json
 {
@@ -237,6 +263,10 @@ Which give when getting kanban ``id 4``:
   "name": "kanban1"
 }
 ```
+
+Since we have 2 kanbans and because we need to get all kanbans for the GLI TP5, I added an api call to get all Kanbans. Just don't put the ``id``.
+
+<http://localhost:8080/api/v1/kanban/get/>
 
 ___
 

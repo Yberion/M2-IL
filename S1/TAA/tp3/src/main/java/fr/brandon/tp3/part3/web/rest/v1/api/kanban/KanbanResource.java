@@ -1,5 +1,7 @@
 package fr.brandon.tp3.part3.web.rest.v1.api.kanban;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,6 +45,19 @@ public class KanbanResource
             return kanbanMapper.toKanbanDTO(kanban.get());
         }
         return new KanbanDTO();
+    }
+    
+    @GetMapping("/get/")
+    @ResponseBody // Return Kanban formated to JSON
+    public List<KanbanDTO> getAllKanban()
+    {
+        List<Kanban> kanban = kanbanRepository.findAll();
+
+        if (!kanban.isEmpty())
+        {
+            return kanbanMapper.toKanbanDTO(kanban);
+        }
+        return new ArrayList<>();
     }
 
     @PostMapping("/add")
