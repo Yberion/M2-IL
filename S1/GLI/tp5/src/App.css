@@ -1,0 +1,8 @@
+.App {
+    margin: 20px;
+}
+
+.kanban {
+  display: inline-block !important;
+  width: 20%;
+}
