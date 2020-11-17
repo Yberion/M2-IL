@@ -33,7 +33,7 @@ Pour le pattern ``Active Object`` on a les rôles suivants :
 - Servant : ``Hashoir``
 - Client : ``LauncherTest``
 
-![Diagramme de classe Active Object](./draw/Diagram_Class_Active_Object.svg)
+![Diagramme de classe Active Object](./draw/Diagram_Class_Active_Object.png)
 
 ### Question 3 : Donnez une mise en oeuvre de ``HashoirImpl``.
 
