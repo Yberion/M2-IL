@@ -1,0 +1,89 @@
+plugins {
+    id 'java-library'
+
+    // Apply the application plugin to add support for building a CLI application.
+    id 'application'
+
+    id 'distribution'
+
+    // Spotless - keep your code spotless with Gradle
+    id "com.diffplug.spotless" version "5.6.1"
+
+    id 'jacoco'
+}
+
+group = 'fr.brandon'
+version = '1.0.0'
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+javadoc.options.encoding = "UTF-8"
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+compileJava.dependsOn 'spotlessApply'
+
+test.finalizedBy 'jacocoTestReport'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit Jupiter API for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+
+    // Use JUnit Jupiter Engine for testing.
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    // tinylog2 for logging
+    implementation 'org.tinylog:tinylog-api:2.2.0'
+    implementation 'org.tinylog:tinylog-impl:2.2.0'
+}
+
+application {
+    // Define the main class for the application.
+    mainClassName = 'fr.brandon.aoc.exam2019_2020.App'
+}
+
+test {
+    // Use junit platform for unit tests
+    useJUnitPlatform()
+
+    jacoco {
+        // Don't check the App that only contain the main()
+        excludes += [ 'fr/brandon/aoc/exam2019_2020/App' ]
+    }
+}
+
+jacocoTestReport {
+    // Display everything except App
+    classDirectories.setFrom(
+        fileTree(dir: 'build/classes/java/main/fr/brandon/aoc/exam2019_2020')
+            .filter({file -> !file.name.equals('App.class')})
+    )
+}
+
+spotless {
+    format 'misc', {
+        target '*.gradle', '*.md'
+
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+    java {
+        target '**/*.java'
+
+        licenseHeaderFile 'resources/spotless/license/LICENSE.spotless'
+
+        importOrder()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+
+        eclipse().configFile('resources/eclipse/formatter/Brandon_Java.xml')
+    }
+}

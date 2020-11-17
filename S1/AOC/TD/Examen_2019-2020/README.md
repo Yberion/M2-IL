@@ -16,13 +16,13 @@ L'avantage du pattern ``Decorator`` est le découplage par rapport au couplage f
 
 Utilisation du pattern stratégie.
 
-### Question 2 : Quel(s) patron(s) de conception vous semblent bien adapté(s) pour faciliter le changement de fonction de hachage ?
+### Question 2 : Donnez un diagramme de classe montrant l’application d’un des patrons de conception de la question 1 et de Active Object, en utilisant les types indiqués plus haut et les types prédéfinis de la bibiliothèque standard.
 
 Pour le pattern ``Strategy`` on a les rôles suivants :
 
-- Strategy : Hashoir
-- ConcreteStrategy : HashoirImpl
-- Context (ce qui appelle Hashoir le ``Strategy``) : Launcher
+- Strategy : ``Hashoir``
+- ConcreteStrategy : ``HashoirImpl``
+- Context (ce qui appelle ``Hashoir``, ici le ``Strategy``) : ``Launcher``
 
 Pour le pattern ``Active Object`` on a les rôles suivants :
 
@@ -33,11 +33,11 @@ Pour le pattern ``Active Object`` on a les rôles suivants :
 - Servant : ``Hashoir``
 - Client : ``LauncherTest``
 
-__TODO__ : Faire un diagramme de classe.
+![Diagramme de classe Active Object](./draw/Diagram_Class_Active_Object.svg)
 
 ### Question 3 : Donnez une mise en oeuvre de ``HashoirImpl``.
 
-__TODO__ : Faire l'implémentation de ``HashoirImpl`` (avec une ``BlockingQueue`` de ``String`` en input et une ``BlockingQueue`` de ``Pair<String, String>`` en output).
+[HashoirImpl.java](./code/src/main/java/fr/brandon/aoc/exam2019_2020/HashoirImpl.java)
 
 ### Question 4 : Donnez une implémentation Java de ``Launcher`` qui emploie la mise en oeuvre de ``Active Object`` faite dans la bibliothèque standard Java (cf le TP Observer asynchrone).
 
@@ -49,6 +49,8 @@ Dans ``Launcher`` :
 - On instancie un ``ExecutorService`` avec ``parallelCount`` threads
 - On fait une boucle de 1 à ``parallelCount`` où on submit une lamba qui appelle la fonction de hachage qui lit input et écrit dans output
 - Pas de problème d'accès concurrent entre les ``Callable`` qui s'exécutent en parallèle car la ``BlockingQueue`` gère les accès concurrents (est donc Thread Safe)
+
+[Launcher.java](./code/src/main/java/fr/brandon/aoc/exam2019_2020/Launcher.java)
 
 ### Question 5 : Expliquez pourquoi la classe de test ``LauncherTest`` donnée en exemple emploie un ``ExecutorService`` dans sa méthode ``setup()``.
 
