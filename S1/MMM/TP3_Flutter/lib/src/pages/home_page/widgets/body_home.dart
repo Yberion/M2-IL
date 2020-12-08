@@ -9,8 +9,6 @@ class BodyHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final _firebaseUser = context.watch<User>();
-
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('Tweets').orderBy('writtenDate', descending: true).snapshots(),
       builder: (context, snapshot) {
@@ -25,7 +23,7 @@ class BodyHome extends StatelessWidget {
               child: ListTile(
                 contentPadding: const EdgeInsets.only(left: 10, top: 5, bottom: 5),
                 leading: CircleAvatar(
-                  backgroundImage: document.data().containsKey('urlPhoto')
+                  backgroundImage: document.data().containsKey('urlPhoto') && document['urlPhoto'] != null && document['urlPhoto'].toString().isNotEmpty
                       ? NetworkImage(document['urlPhoto'].toString())
                       : const NetworkImage('https://www.iconninja.com/files/280/269/67/avatar-anonym-person-user-default-unknown-head-icon.png'),
                 ),

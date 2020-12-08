@@ -25,7 +25,9 @@ class HomeDrawer extends StatelessWidget {
             accountName: Text(_firebaseUser.displayName, style: const TextStyle(fontSize: 22)),
             accountEmail: Text(_firebaseUser.email),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage(_firebaseUser.photoURL),
+              backgroundImage: _firebaseUser.photoURL != null && _firebaseUser.photoURL.isNotEmpty
+                  ? NetworkImage(_firebaseUser.photoURL)
+                  : const NetworkImage('https://www.iconninja.com/files/280/269/67/avatar-anonym-person-user-default-unknown-head-icon.png'),
             ),
             otherAccountsPictures: [
               IconButton(
