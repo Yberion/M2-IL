@@ -23,13 +23,13 @@
  */
 package fr.brandon.aoc.tp.capteur.api;
 
-import fr.brandon.aoc.tp.observer_de_capteur.api.ObserverDeCapteur;
+import fr.brandon.aoc.tp.canal.api.CapteurAsync;
 
 public interface Capteur
 {
-    void attach(ObserverDeCapteur observer);
+    void attach(CapteurAsync observer);
 
-    void detach(ObserverDeCapteur observer);
+    void detach(CapteurAsync observer);
 
     Integer getValue();
 

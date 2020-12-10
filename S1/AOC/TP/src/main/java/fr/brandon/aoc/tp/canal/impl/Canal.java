@@ -23,10 +23,10 @@
  */
 package fr.brandon.aoc.tp.canal.impl;
 
-import fr.brandon.aoc.tp.canal.api.CapteurAsync;
-import fr.brandon.aoc.tp.capteur.api.Capteur;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
+
+import fr.brandon.aoc.tp.canal.api.CapteurAsync;
 
 public class Canal implements CapteurAsync
 {
@@ -37,8 +37,9 @@ public class Canal implements CapteurAsync
         this.scheduledExecutorService = scheduledExecutorService;
     }
 
-    void update(Capteur capteur)
+    public void update()
     {
+        
     }
 
     @Override

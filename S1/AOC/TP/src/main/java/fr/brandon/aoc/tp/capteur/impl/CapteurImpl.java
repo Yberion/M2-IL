@@ -23,16 +23,17 @@
  */
 package fr.brandon.aoc.tp.capteur.impl;
 
-import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
-import fr.brandon.aoc.tp.capteur.api.Capteur;
-import fr.brandon.aoc.tp.observer_de_capteur.api.ObserverDeCapteur;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
+import fr.brandon.aoc.tp.canal.api.CapteurAsync;
+import fr.brandon.aoc.tp.capteur.api.Capteur;
+
 public class CapteurImpl implements Capteur
 {
-    private Set<ObserverDeCapteur> observers;
+    private Set<CapteurAsync> observers;
     private Integer value;
     private AlgorithmeDiffusion algorithmeDiffusion;
 
@@ -43,14 +44,14 @@ public class CapteurImpl implements Capteur
     }
 
     @Override
-    public void attach(ObserverDeCapteur observer)
+    public void attach(CapteurAsync observer)
     {
         Objects.requireNonNull(observer);
         this.observers.add(observer);
     }
 
     @Override
-    public void detach(ObserverDeCapteur observer)
+    public void detach(CapteurAsync observer)
     {
         Objects.requireNonNull(observer);
         this.observers.remove(observer);
@@ -62,17 +63,11 @@ public class CapteurImpl implements Capteur
         return this.value;
     }
 
-    // Synchronize ?
     @Override
     public void tick()
     {
         this.value++;
+        this.algorithmeDiffusion.configure(observers);
         this.algorithmeDiffusion.execute();
-        /*
-         * for (ObserverDeCapteur observer : this.observers)
-         * {
-         * observer.update(this);
-         * }
-         */
     }
 }

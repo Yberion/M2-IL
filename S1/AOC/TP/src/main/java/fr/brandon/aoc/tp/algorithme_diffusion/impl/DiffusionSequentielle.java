@@ -23,9 +23,10 @@
  */
 package fr.brandon.aoc.tp.algorithme_diffusion.impl;
 
+import java.util.Set;
+
 import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
 import fr.brandon.aoc.tp.canal.api.CapteurAsync;
-import java.util.Set;
 
 public class DiffusionSequentielle implements AlgorithmeDiffusion
 {

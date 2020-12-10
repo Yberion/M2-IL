@@ -23,6 +23,13 @@
  */
 package fr.brandon.aoc.tp;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
+import org.tinylog.Logger;
+
 import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
 import fr.brandon.aoc.tp.algorithme_diffusion.impl.DiffusionAtomique;
 import fr.brandon.aoc.tp.canal.api.CapteurAsync;
@@ -31,15 +38,10 @@ import fr.brandon.aoc.tp.capteur.api.Capteur;
 import fr.brandon.aoc.tp.capteur.impl.CapteurImpl;
 import fr.brandon.aoc.tp.observer_de_capteur.api.ObserverDeCapteur;
 import fr.brandon.aoc.tp.observer_de_capteur.impl.Afficheur;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import org.tinylog.Logger;
 
 public final class App
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws NoSuchAlgorithmException
     {
         Logger.info("DEBUT main()");
         AlgorithmeDiffusion algorithmeDiffusion = new DiffusionAtomique();
@@ -49,16 +51,15 @@ public final class App
         CapteurAsync canal2 = new Canal(scheduledExecutorService);
         CapteurAsync canal3 = new Canal(scheduledExecutorService);
         CapteurAsync canal4 = new Canal(scheduledExecutorService);
-        Set<CapteurAsync> canaux = new LinkedHashSet<>();
-        canaux.add(canal1);
-        canaux.add(canal2);
-        canaux.add(canal3);
-        canaux.add(canal4);
-        algorithmeDiffusion.configure(canaux);
         ObserverDeCapteur afficheur1 = new Afficheur();
         ObserverDeCapteur afficheur2 = new Afficheur();
         ObserverDeCapteur afficheur3 = new Afficheur();
         ObserverDeCapteur afficheur4 = new Afficheur();
+        
+        MessageDigest md = MessageDigest.getInstance("SHA1");
+        
+        System.out.println(md);
+        
         Logger.info("FIN main()");
     }
 }

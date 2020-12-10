@@ -23,12 +23,15 @@
  */
 package fr.brandon.aoc.tp.algorithme_diffusion.impl;
 
+import java.util.Objects;
+import java.util.Set;
+
 import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
 import fr.brandon.aoc.tp.canal.api.CapteurAsync;
-import java.util.Set;
 
 public class DiffusionAtomique implements AlgorithmeDiffusion
 {
+    // Canal ?
     private Set<CapteurAsync> canaux;
 
     @Override
@@ -40,9 +43,11 @@ public class DiffusionAtomique implements AlgorithmeDiffusion
     @Override
     public void execute()
     {
+        Objects.nonNull(this.canaux);
 
-        if (this.canaux != null)
+        for (CapteurAsync capteurAsync : canaux)
         {
+            //capteurAsync.
         }
     }
 }
