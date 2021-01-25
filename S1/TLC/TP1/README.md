@@ -136,7 +136,7 @@ EXPOSE 80
 ```
 
 Pour définir des commandes qui doivent être exécutées au démarrage du container de cette image, il faut utiliser la commande `CMD`.
-Si la commande a besoin d'arguments il est recommandé d'utiliser un tableau, par exemple `["a_cmd", "-a", "arga value", "-b", "argb-value"]` ce qui donnera `cmd -a "arga value" -b argb-value`.
+Si la commande a besoin d'arguments il est recommandé d'utiliser un tableau, par exemple `["a_cmd", "-a", "arga-value", "-b", "argb-value"]` ce qui donnera `cmd -a "arga value" -b argb-value`.
 
 La commande pour démarrer nginx est `nginx -g daemon off;`, ce qui donne :
 
@@ -335,7 +335,7 @@ Dans ce scénario on veut un service ``NGINX`` qui sera capable de répartir la 
 
 On veut rediriger toutes les requêtes du port `80` du `host` vers `nginx-proxy`.
 
-La seconde chose est de monter le `docker.sock` qui est une connexion au `Docker daemon` sur la machine `host` ce qui permet aux containers d'accéder aux métadonnées via une API. `NGINX` s'en sert pour écouter les évènements et mettre à jour la configuration d'`NGINX` en fonction de adresse IP du container.
+La seconde chose est de monter le `docker.sock` qui est une connexion au `Docker daemon` sur la machine `host` ce qui permet aux containers d'accéder aux métadonnées via une API. `NGINX` s'en sert pour écouter les évènements et mettre à jour la configuration d'`NGINX` en fonction de l'adresse IP du container.
 
 Monter un fichier se fait de manière identique à un dossier via `-v /var/run/docker.sock:/tmp/docker.sock:ro`, le `:ro` indique une restriction de lecture seule.
 
@@ -345,4 +345,173 @@ Si une requête ne spécifie pas d'hosts particulier il est possible de définir
 
 Maintenant que `NGINX` écoute les évènements, on va tester avec une image, `katacoda/docker-http-server`, qui contient un site simple retournant le nom de la machine et qui tourne en interne avec PHP et Apache2 sur le port 80.
 
-Pour que `NGINX` envoie les requêtes à un container il faut définir la variable d'environnement `VIRTUAL_HOST` lors de la création du container.
+Pour que `NGINX` envoie les requêtes à un container il faut définir la variable d'environnement `VIRTUAL_HOST` lors de la création du container. Il va être identique au `DEFAULT_HOST` défini plus haut pour accepter toutes les requêtes :
+
+```docker run -d -p 80 -e VIRTUAL_HOST=proxy.example katacoda/docker-http-server```
+
+Pour tester utilisez `curl` :
+
+```curl http://docker```
+
+```bash
+$ curl http://docker
+<h1>This request was processed by host: 43ad3e3039d1</h1>
+```
+
+On a un container qui peut gérer les requêtes HTTP. Si on créé un second container pour gérer les requêtes HTTP, `nginx-proxy` va rediriger de façon cyclique (round-robin) les requêtes sur chaque container. Ce qui veut dire que la première requête ira sur le premier container, la seconde sur le second container, la troisième sur le premier container, etc.
+
+Création du second container :
+
+```docker run -d -p 80 -e VIRTUAL_HOST=proxy.example katacoda/docker-http-server```
+
+Et test avec `curl` :
+
+```bash
+$ curl http://docker
+<h1>This request was processed by host: 20a66e06db69</h1>
+$ curl http://docker
+<h1>This request was processed by host: 43ad3e3039d1</h1>
+$ curl http://docker
+<h1>This request was processed by host: 20a66e06db69</h1>
+```
+
+On peut voir la configuration que fait `nginx-proxy` via :
+
+```docker exec nginx cat /etc/nginx/conf.d/default.conf```
+
+On peut aussi avoir des informations sur le rechargement de la configuration avec les logs :
+
+```docker logs nginx```
+
+### Orchestration using Docker Compose
+
+<https://katacoda.com/courses/docker/11>
+
+Docker Compose est basé sur un fichier `docker-compose.yml`. Ce fichier défini tous les containers et toutes les configurations nécessaire pour le lancement d'un ensemble de clusters. Il est au format `YAML` (Yet Another Markup Language).
+
+On peut voir le `docker-compose.yml` comme un fichier bash qui contiendrait une suite de commande pour démarrer les containers (avec configuration, etc).
+
+```yaml
+container_name:
+  property: value
+    - or options
+```
+
+Dans ce scénario, on a une application Node.js qui a besoin d'une connexion à `Redis`.
+
+Pour commencer, on a besoin de définir le fichier `docker-compose.yml` qui lancera l'application Node.js.
+
+Dans le dossier courant nous avons :
+
+```text
+./
+  Dockerfile
+  Makefile
+  docker-compose.yml
+  package.json
+  server.js
+```
+
+On ajoute un container avec le nom `web` et on assigne le répertoire courant à la propriété `build` :
+
+```yaml
+web:
+  build: .
+```
+
+Le `build: .` permet de générer le container via le Dockerfile sur le répertoire courant.
+
+Il est aussi possible de build le container à part avec la commande `docker build -t mon-server:latest` et de renseigner directement le nom de l'image :
+
+```yaml
+web:
+  image: mon-server:latest
+```
+
+Docker Compose supporte toutes les propriétés pouvant être définies via `docker run`.
+
+On veut exposer le port `3001`, dans le dockerfile :
+
+```dockerfile
+FROM ocelotuproar/alpine-node:5.7.1-onbuild
+COPY server.js .
+EXPOSE 3001
+CMD ["node", "server.js"]
+```
+
+Dans le fichier docker-compose, pour qu'un service puisse pouvoir ping un autre service il fallait ajouter le propriété `links`, notre service `web` doit pouvoir dialoguer avec le service `redis` que l'on va ajouter un peu plus loin :
+
+```yaml
+web:
+  build: .
+
+  links:
+    - redis
+```
+
+Ensuite, comme si on faisait `-p 3001:3001`, on map le port host sur le port container :
+
+```yaml
+web:
+  build: .
+
+  links:
+    - redis
+
+  ports:
+    - "3001:3001"
+```
+
+On peut maintenant définir notre service `redis` :
+
+```yaml
+web:
+  build: .
+
+  links:
+    - redis
+
+  ports:
+    - "3001:3001"
+    
+redis:
+  image: redis:alpine
+  volumes:
+    - /var/redis/data:/data
+```
+
+On peut maintenant lancer tous les services (le `-d` indique que les containers sont en tâche de fond) :
+
+```docker-compose up -d```
+
+Docker Compose gère le démarrage de tous les containers mais aussi propose un certain nombre de commande pour gérer ces containers.
+
+```docker-compose ps```
+
+```docker-compose logs```
+
+Pour voir les commandes :
+
+```docker-compose```
+
+Il est possible de définir le nombre d'instance d'un container avec l'option `scale server-name=number`. Si le nombre est supérieur au nombre de container déjà lancé alors il lancera les containers en plus.
+
+par exemple pour définir 3 containers (on en a déjà un de base donc pour en ajouter deux) :
+
+```docker-compose scale web=3```
+
+Là on a un problème car le port 3001 existe déjà vu qu'on bind `3001:3001`.
+
+Pour retourner à un seul container :
+
+```docker-compose scale web=1```
+
+On peut arrêter tous les containers avec :
+
+```docker-compose stop```
+
+Et pour supprimer les containers :
+
+```docker-compose rm```
+
+On peut indiquer quel fichier `build`/`up`/`stop` avec l'argument `-f`.

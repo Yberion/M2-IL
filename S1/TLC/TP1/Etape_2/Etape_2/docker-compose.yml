@@ -1,0 +1,17 @@
+nginx-proxy:
+  image: jwilder/nginx-proxy
+
+  ports:
+    - "8080:80"
+
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock
+
+  environment:
+    - DEFAULT_HOST=mondomain
+
+nginx:
+  image: nginx
+
+  environment:
+    - VIRTUAL_HOST=mondomain
