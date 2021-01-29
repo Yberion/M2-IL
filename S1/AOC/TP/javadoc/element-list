@@ -1,0 +1,8 @@
+fr.brandon.aoc.tp.algorithme_diffusion.api
+fr.brandon.aoc.tp.algorithme_diffusion.impl
+fr.brandon.aoc.tp.canal.api
+fr.brandon.aoc.tp.canal.impl
+fr.brandon.aoc.tp.capteur.api
+fr.brandon.aoc.tp.capteur.impl
+fr.brandon.aoc.tp.observer_de_capteur.api
+fr.brandon.aoc.tp.observer_de_capteur.impl

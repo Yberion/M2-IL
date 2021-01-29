@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Brandon Largeau, David Lafia-Monwoo
+ * Copyright (c) 2020 - 2021 Brandon Largeau, David Lafia-Monwoo
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,13 +23,64 @@
  */
 package fr.brandon.aoc.tp.observer_de_capteur.impl;
 
-import fr.brandon.aoc.tp.capteur.api.Capteur;
+import fr.brandon.aoc.tp.canal.api.CapteurAsync;
 import fr.brandon.aoc.tp.observer_de_capteur.api.ObserverDeCapteur;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import org.tinylog.Logger;
 
-public class Afficheur implements ObserverDeCapteur
+public final class Afficheur implements ObserverDeCapteur
 {
-    @Override
-    public void update(Capteur capteur)
+    private final List<Integer> data;
+    //private static int nombreCapteur = 0;
+    //private int numeroCapteur;
+    private int maxValue;
+    private final Object object = new Object();
+
+    public Afficheur()
     {
+        this.data = new ArrayList<>();
+        //nombreCapteur++;
+        //this.numeroCapteur = nombreCapteur;
+        this.maxValue = 0;
+    }
+
+    @Override
+    public List<Integer> getData()
+    {
+        return Collections.unmodifiableList(this.data);
+    }
+
+    @Override
+    public void update(CapteurAsync canal)
+    {
+        //Logger.info("[Afficheur " + this.numeroCapteur + "] (" + Thread.currentThread().getName() + ")    update()");
+        Future<Integer> futureValue = canal.getValue();
+        Integer value;
+
+        try
+        {
+            value = futureValue.get();
+
+            synchronized (this.object)
+            {
+
+                if (value > maxValue)
+                {
+                    this.data.add(value);
+                    maxValue = value;
+                }
+            }
+            //Logger.info("[Afficheur " + this.numeroCapteur + "] (" + Thread.currentThread().getName()
+            //        + ")    update() value : " + value);
+        }
+        catch (InterruptedException | ExecutionException e1)
+        {
+            Logger.trace(e1);
+            Thread.currentThread().interrupt();
+        }
     }
 }

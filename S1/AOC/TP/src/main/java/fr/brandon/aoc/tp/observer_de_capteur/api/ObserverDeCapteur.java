@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Brandon Largeau, David Lafia-Monwoo
+ * Copyright (c) 2020 - 2021 Brandon Largeau, David Lafia-Monwoo
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,30 @@
  */
 package fr.brandon.aoc.tp.observer_de_capteur.api;
 
-import fr.brandon.aoc.tp.capteur.api.Capteur;
+import fr.brandon.aoc.tp.canal.api.CapteurAsync;
+import java.util.List;
 
+/**
+ * <b>Represente un observeur de capteur</b>
+ *
+ * @author LARGEAU Brandon, LAFIA-MONWOO David
+ * @version 1
+ */
 public interface ObserverDeCapteur
 {
-    void update(Capteur capteur);
+    /**
+     * Permet de simuler la mise a jour de la valeur affichee par l'observer de capteur.
+     *
+     * @param canal est un CapteurAsync
+     *
+     * @throws InterruptedException ou ExecutionException
+     */
+    void update(CapteurAsync canal);
+
+    /**
+     * Permet d'obtenir les valeurs que l'observer de capteur a reçues.
+     *
+     * @return List<Integer> represente l'ensemble des valeurs reçues
+     */
+    List<Integer> getData();
 }

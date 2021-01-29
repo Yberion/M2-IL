@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Brandon Largeau, David Lafia-Monwoo
+ * Copyright (c) 2020 - 2021 Brandon Largeau, David Lafia-Monwoo
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,22 @@ package fr.brandon.aoc.tp.canal.api;
 
 import java.util.concurrent.Future;
 
+/**
+ * <b>Represente un capteur en asynchrone</b>
+ *
+ * @author LARGEAU Brandon, LAFIA-MONWOO David
+ * @version 1
+ */
 public interface CapteurAsync
 {
+    /**
+     * Permet de faire un appel asynchrone pour recuperer la valeur du capteur apres un certain temps (entre 0 et 2 secondes).
+     *
+     * Le capteur ne doit pas etre null
+     *
+     * @return Future<Integer> un future contenant la valeur du capteur
+     *
+     * @throws NullPointerException si le capteur est null
+     */
     Future<Integer> getValue();
 }

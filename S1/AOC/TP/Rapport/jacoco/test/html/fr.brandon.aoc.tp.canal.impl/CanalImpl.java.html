@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CanalImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AOC_TP</a> &gt; <a href="index.source.html" class="el_package">fr.brandon.aoc.tp.canal.impl</a> &gt; <span class="el_source">CanalImpl.java</span></div><h1>CanalImpl.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
+ *
+ * Copyright (c) 2020 - 2021 Brandon Largeau, David Lafia-Monwoo
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package fr.brandon.aoc.tp.canal.impl;
+
+import fr.brandon.aoc.tp.canal.api.CapteurAsync;
+import fr.brandon.aoc.tp.canal.api.ObserverDeCapteurAsync;
+import fr.brandon.aoc.tp.capteur.api.Capteur;
+import fr.brandon.aoc.tp.observer_de_capteur.api.ObserverDeCapteur;
+import java.util.Objects;
+import java.util.Random;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * CanalImpl est une class immutable.
+ *
+ * @author LARGEAU Brandon, LAFIA-MONWOO David
+ * @version 1
+ */
+public final class CanalImpl implements ObserverDeCapteurAsync, CapteurAsync
+{
+    private static final long MAX_DELAY = 2000;
+    private final ScheduledExecutorService scheduledExecutorService;
+    private final ObserverDeCapteur afficheur;
+    private Capteur capteur;
+
+    private CanalImpl(ScheduledExecutorService scheduledExecutorService, ObserverDeCapteur afficheur)
+<span class="fc" id="L50">    {</span>
+<span class="fc" id="L51">        this.scheduledExecutorService = scheduledExecutorService;</span>
+<span class="fc" id="L52">        this.afficheur = afficheur;</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * Permet de creer un CanalImpl. Utilisation du pattern factory pour
+     * securiser la creation du canal avec un ScheduledExecutorService et ObserverDeCapteur valide.
+     *
+     * @param scheduledExecutorService qui va contenir les thread cree par le canal (non null)
+     * @param afficheur                qui permet d'appeler sa methode Update() (non null)
+     *
+     * @return un CanalImpl avec ScheduledExecutorService et ObserverDeCapteur valide
+     *
+     * @throws NullPointerException si scheduledExecutorService ou afficheur est null
+     */
+    public static CanalImpl create(ScheduledExecutorService scheduledExecutorService, ObserverDeCapteur afficheur)
+    {
+<span class="fc" id="L68">        Objects.requireNonNull(scheduledExecutorService);</span>
+<span class="fc" id="L69">        Objects.requireNonNull(afficheur);</span>
+<span class="fc" id="L70">        return new CanalImpl(scheduledExecutorService, afficheur);</span>
+    }
+
+    @Override
+    public void setCapteur(Capteur capteur)
+    {
+<span class="fc" id="L76">        this.capteur = capteur;</span>
+<span class="fc" id="L77">    }</span>
+
+    @Override
+    public Future&lt;Integer&gt; getValue()
+    {
+<span class="fc" id="L82">        Objects.requireNonNull(capteur);</span>
+<span class="fc" id="L83">        return scheduledExecutorService.schedule(() -&gt;</span>
+        {
+            //Logger.info(&quot;[CanalImpl] (&quot; + Thread.currentThread().getName() + &quot;)      getValue() aprÃ¨s &quot; + delay + &quot;ms&quot;);
+<span class="fc" id="L86">            return capteur.getValue();</span>
+<span class="fc" id="L87">        }, this.generateRandomDelay(), TimeUnit.MILLISECONDS);</span>
+    }
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    @Override
+    public Future&lt;Void&gt; update()
+    {
+<span class="fc" id="L94">        Objects.requireNonNull(afficheur);</span>
+<span class="fc" id="L95">        return (Future&lt;Void&gt;) scheduledExecutorService.schedule(() -&gt;</span>
+        {
+            //Logger.info(&quot;[CanalImpl] (&quot; + Thread.currentThread().getName() + &quot;)      update() aprÃ¨s &quot; + delay + &quot;ms&quot;);
+<span class="fc" id="L98">            afficheur.update(this);</span>
+<span class="fc" id="L99">        }, this.generateRandomDelay(), TimeUnit.MILLISECONDS);</span>
+    }
+
+    /**
+     * Permet de generer aleatoirement un long entre 0 et MAX_DELAY
+     *
+     * @return un long genere aleatoirement
+     */
+    private long generateRandomDelay()
+    {
+<span class="fc" id="L109">        return new Random().longs(0, (MAX_DELAY + 1)).limit(1).findFirst().getAsLong();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

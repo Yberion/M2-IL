@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CapteurImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AOC_TP</a> &gt; <a href="index.source.html" class="el_package">fr.brandon.aoc.tp.capteur.impl</a> &gt; <span class="el_source">CapteurImpl.java</span></div><h1>CapteurImpl.java</h1><pre class="source lang-java linenums">/*
+ * MIT License
+ *
+ * Copyright (c) 2020 - 2021 Brandon Largeau, David Lafia-Monwoo
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package fr.brandon.aoc.tp.capteur.impl;
+
+import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
+import fr.brandon.aoc.tp.algorithme_diffusion.impl.DiffusionAtomique;
+import fr.brandon.aoc.tp.algorithme_diffusion.impl.DiffusionSequentielle;
+import fr.brandon.aoc.tp.canal.api.ObserverDeCapteurAsync;
+import fr.brandon.aoc.tp.capteur.api.Capteur;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
+
+public final class CapteurImpl implements Capteur
+{
+    private final Set&lt;ObserverDeCapteurAsync&gt; observers;
+    private final AlgorithmeDiffusion algorithmeDiffusion;
+<span class="fc" id="L40">    private Integer value = 0;</span>
+<span class="fc" id="L41">    private Integer lockedValue = 0;</span>
+
+    private CapteurImpl(AlgorithmeDiffusion algorithmeDiffusion)
+<span class="fc" id="L44">    {</span>
+<span class="fc" id="L45">        this.algorithmeDiffusion = algorithmeDiffusion;</span>
+<span class="fc" id="L46">        this.observers = new LinkedHashSet&lt;&gt;();</span>
+<span class="fc" id="L47">    }</span>
+
+    /**
+     * Permet de creer un CapteurImpl. Utilisation du pattern factory pour
+     * securiser la creation du capteur avec un AlgorithmeDiffusion valide.
+     *
+     * @param algorithmeDiffusion est l'algorithme qui sera utilise pour la distribution des valeurs (non null)
+     *
+     * @return un CapteurImpl avec AlgorithmeDiffusion valide
+     *
+     * @throws NullPointerException si algorithmeDiffusion est null
+     */
+    public static CapteurImpl create(AlgorithmeDiffusion algorithmeDiffusion)
+    {
+<span class="fc" id="L61">        Objects.requireNonNull(algorithmeDiffusion);</span>
+<span class="fc" id="L62">        return new CapteurImpl(algorithmeDiffusion);</span>
+    }
+
+    @Override
+    public void attach(ObserverDeCapteurAsync observer)
+    {
+<span class="fc" id="L68">        Objects.requireNonNull(observer);</span>
+<span class="fc" id="L69">        this.observers.add(observer);</span>
+<span class="fc" id="L70">    }</span>
+
+    @Override
+    public void detach(ObserverDeCapteurAsync observer)
+    {
+<span class="nc" id="L75">        Objects.requireNonNull(observer);</span>
+<span class="nc" id="L76">        this.observers.remove(observer);</span>
+<span class="nc" id="L77">    }</span>
+
+    @Override
+    public Set&lt;ObserverDeCapteurAsync&gt; getObservers()
+    {
+<span class="fc" id="L82">        return Collections.unmodifiableSet(this.observers);</span>
+    }
+
+    @Override
+    public Integer getValue()
+    {
+        //Logger.info(&quot;[CapteurImpl] (&quot; + Thread.currentThread().getName() + &quot;)    getValue() Valeur : &quot; + this.value
+        //        + &quot;, locked value : &quot; + this.lockedValue);
+
+<span class="fc bfc" id="L91" title="All 4 branches covered.">        if (algorithmeDiffusion instanceof DiffusionAtomique || algorithmeDiffusion instanceof DiffusionSequentielle)</span>
+        {
+<span class="fc" id="L93">            this.releaseLock();</span>
+<span class="fc" id="L94">            return this.lockedValue;</span>
+        }
+<span class="fc" id="L96">        return this.value;</span>
+    }
+
+    @Override
+    public void releaseLock()
+    {
+<span class="fc" id="L102">        this.algorithmeDiffusion.semaphoreReleaseOnce();</span>
+<span class="fc" id="L103">    }</span>
+
+    @Override
+    public void updateLockedValue()
+    {
+<span class="fc" id="L108">        this.lockedValue = this.value;</span>
+<span class="fc" id="L109">    }</span>
+
+    @Override
+    public void tick() throws InterruptedException
+    {
+        //Logger.info(&quot;[CapteurImpl] (&quot; + Thread.currentThread().getName() + &quot;)               tick() Valeur : &quot;
+        //        + this.value + &quot;, locked value : &quot; + this.lockedValue);
+<span class="fc" id="L116">        this.algorithmeDiffusion.execute();</span>
+<span class="fc" id="L117">        this.value++;</span>
+<span class="fc" id="L118">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

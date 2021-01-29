@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Brandon Largeau, David Lafia-Monwoo
+ * Copyright (c) 2020 - 2021 Brandon Largeau, David Lafia-Monwoo
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,14 +23,39 @@
  */
 package fr.brandon.aoc.tp.algorithme_diffusion.api;
 
-import java.util.Set;
+import fr.brandon.aoc.tp.capteur.api.Capteur;
 
-import fr.brandon.aoc.tp.canal.api.CapteurAsync;
-
+/**
+ * <b>Represente l'algorithme de diffusion</b>
+ *
+ * @author LARGEAU Brandon, LAFIA-MONWOO David
+ * @version 1
+ */
 public interface AlgorithmeDiffusion
 {
-    // Canal ?
-    void configure(Set<CapteurAsync> canaux);
+    /**
+     * Permet de configurer l'algorithme de diffusion en lui injectant un capteur.
+     *
+     * @param capteur est un Capteur (non null)
+     *
+     * @throws NullPointerException si le capteur est null
+     */
+    void configure(Capteur capteur);
 
-    void execute();
+    /**
+     * Lance l'execution de l'algorithme.
+     *
+     * Le capteur ne doit pas etre null
+     *
+     * @throws NullPointerException si le capteur est null
+     * @throws InterruptedException si le thread est en attente d'un token et qu'un signal d'interruption est lance
+     */
+    void execute() throws InterruptedException;
+
+    /**
+     * Permet de liberer un token sur le semaphore. Est utilise depuis le capteur.
+     *
+     * @throws NullPointerException si le semaphore est null
+     */
+    void semaphoreReleaseOnce();
 }

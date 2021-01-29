@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Brandon Largeau, David Lafia-Monwoo
+ * Copyright (c) 2020 - 2021 Brandon Largeau, David Lafia-Monwoo
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,15 +23,63 @@
  */
 package fr.brandon.aoc.tp.capteur.api;
 
-import fr.brandon.aoc.tp.canal.api.CapteurAsync;
+import fr.brandon.aoc.tp.canal.api.ObserverDeCapteurAsync;
+import java.util.Set;
 
+/**
+ * <b>Represente un capteur</b>
+ *
+ * @author LARGEAU Brandon, LAFIA-MONWOO David
+ * @version 1
+ */
 public interface Capteur
 {
-    void attach(CapteurAsync observer);
+    /**
+     * Permet de lier un observer de capteur asynchrone (canal) au capteur, en ajoutant l'observer au Set d'observers.
+     *
+     * @param observer (non null)
+     *
+     * @throws NullPointerException si l'observer est null
+     */
+    void attach(ObserverDeCapteurAsync observer);
 
-    void detach(CapteurAsync observer);
+    /**
+     * Permet de retirer un observer de capteur asynchrone (canal) en le retirant du Set d'observers.
+     *
+     * @param observer (non null)
+     *
+     * @throws NullPointerException si l'observer est null
+     */
+    void detach(ObserverDeCapteurAsync observer);
 
+    /**
+     * Permet d'obtenir la collection de tous les observers du capteur.
+     *
+     * @return Set<ObserverDeCapteurAsync> un Set contenant tout les observers du capteur
+     */
+    Set<ObserverDeCapteurAsync> getObservers();
+
+    /**
+     * Permet d'obtenir la valeur du compteur du capteur.
+     *
+     * @return Integer un Integer contenant la valeur du capteur
+     */
     Integer getValue();
 
-    void tick();
+    /**
+     * Permet de mettre a jour la valeur du compteur du capteur qui sera verouillee.
+     */
+    void updateLockedValue();
+
+    /**
+     * Permet de notifier l'algo de diffusion lorsque que l'execution d'un geValue est termine.
+     */
+    void releaseLock();
+
+    /**
+     * Permet de simuler une tick dans le capteur.
+     *
+     * @throws InterruptedException
+     */
+    void tick() throws InterruptedException;
 }

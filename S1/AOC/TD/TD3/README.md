@@ -86,20 +86,24 @@ Après arrêt de l'exécution (après une 100ène de tick par exemple) :
 
 ### (M3) Diagramme de classe Update
 
-![M3 Diagramme de classe Update](./draw/M3_Diagram_Class_Update.svg)
+![M3 Diagramme de classe Update](./draw/M3_Diagram_Class_Update.png)
 
 ### (M3) Diagramme de classe GetValue
 
-![M3 Diagramme de classe GetValue](./draw/M3_Diagram_Class_GetValue.svg)
+![M3 Diagramme de classe GetValue](./draw/M3_Diagram_Class_GetValue.png)
 
 ### (M3) Diagramme de séquence 1
 
-![M3 Diagramme de séquence 1](./draw/M3_Diagram_Sequence_1.svg)
+![M3 Diagramme de séquence 1](./draw/M3_Diagram_Sequence_1.png)
 
-### (M3) Diagramme de séquence 2A
+### (M3) Diagramme de séquence 2
 
-![M3 Diagramme de séquence 2A](./draw/M3_Diagram_Sequence_2A.svg)
+![M3 Diagramme de séquence 2](./draw/M3_Diagram_Sequence_2.png)
 
-### (M3) Diagramme de séquence 2B
+### (M3) Diagramme de séquence 3
 
-![M3 Diagramme de séquence 2B](./draw/M3_Diagram_Sequence_2B.svg)
+![M3 Diagramme de séquence 3](./draw/M3_Diagram_Sequence_3.png)
+
+### (M3) Diagramme de séquence 4
+
+![M3 Diagramme de séquence 4](./draw/M3_Diagram_Sequence_4.png)

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Brandon Largeau, David Lafia-Monwoo
+ * Copyright (c) 2020 - 2021 Brandon Largeau, David Lafia-Monwoo
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,51 +23,97 @@
  */
 package fr.brandon.aoc.tp.capteur.impl;
 
+import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
+import fr.brandon.aoc.tp.algorithme_diffusion.impl.DiffusionAtomique;
+import fr.brandon.aoc.tp.algorithme_diffusion.impl.DiffusionSequentielle;
+import fr.brandon.aoc.tp.canal.api.ObserverDeCapteurAsync;
+import fr.brandon.aoc.tp.capteur.api.Capteur;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
-import fr.brandon.aoc.tp.canal.api.CapteurAsync;
-import fr.brandon.aoc.tp.capteur.api.Capteur;
-
-public class CapteurImpl implements Capteur
+public final class CapteurImpl implements Capteur
 {
-    private Set<CapteurAsync> observers;
-    private Integer value;
-    private AlgorithmeDiffusion algorithmeDiffusion;
+    private final Set<ObserverDeCapteurAsync> observers;
+    private final AlgorithmeDiffusion algorithmeDiffusion;
+    private Integer value = 0;
+    private Integer lockedValue = 0;
 
-    public CapteurImpl(AlgorithmeDiffusion algorithmeDiffusion)
+    private CapteurImpl(AlgorithmeDiffusion algorithmeDiffusion)
     {
-        this.observers = new LinkedHashSet<>();
         this.algorithmeDiffusion = algorithmeDiffusion;
+        this.observers = new LinkedHashSet<>();
+    }
+
+    /**
+     * Permet de creer un CapteurImpl. Utilisation du pattern factory pour
+     * securiser la creation du capteur avec un AlgorithmeDiffusion valide.
+     *
+     * @param algorithmeDiffusion est l'algorithme qui sera utilise pour la distribution des valeurs (non null)
+     *
+     * @return un CapteurImpl avec AlgorithmeDiffusion valide
+     *
+     * @throws NullPointerException si algorithmeDiffusion est null
+     */
+    public static CapteurImpl create(AlgorithmeDiffusion algorithmeDiffusion)
+    {
+        Objects.requireNonNull(algorithmeDiffusion);
+        return new CapteurImpl(algorithmeDiffusion);
     }
 
     @Override
-    public void attach(CapteurAsync observer)
+    public void attach(ObserverDeCapteurAsync observer)
     {
         Objects.requireNonNull(observer);
         this.observers.add(observer);
     }
 
     @Override
-    public void detach(CapteurAsync observer)
+    public void detach(ObserverDeCapteurAsync observer)
     {
         Objects.requireNonNull(observer);
         this.observers.remove(observer);
     }
 
     @Override
+    public Set<ObserverDeCapteurAsync> getObservers()
+    {
+        return Collections.unmodifiableSet(this.observers);
+    }
+
+    @Override
     public Integer getValue()
     {
+        //Logger.info("[CapteurImpl] (" + Thread.currentThread().getName() + ")    getValue() Valeur : " + this.value
+        //        + ", locked value : " + this.lockedValue);
+
+        if (algorithmeDiffusion instanceof DiffusionAtomique || algorithmeDiffusion instanceof DiffusionSequentielle)
+        {
+            this.releaseLock();
+            return this.lockedValue;
+        }
         return this.value;
     }
 
     @Override
-    public void tick()
+    public void releaseLock()
     {
-        this.value++;
-        this.algorithmeDiffusion.configure(observers);
+        this.algorithmeDiffusion.semaphoreReleaseOnce();
+    }
+
+    @Override
+    public void updateLockedValue()
+    {
+        this.lockedValue = this.value;
+    }
+
+    @Override
+    public void tick() throws InterruptedException
+    {
+        //Logger.info("[CapteurImpl] (" + Thread.currentThread().getName() + ")               tick() Valeur : "
+        //        + this.value + ", locked value : " + this.lockedValue);
         this.algorithmeDiffusion.execute();
+        this.value++;
     }
 }

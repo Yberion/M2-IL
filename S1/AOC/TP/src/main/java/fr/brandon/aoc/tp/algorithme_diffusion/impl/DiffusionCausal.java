@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Brandon Largeau, David Lafia-Monwoo
+ * Copyright (c) 2020 - 2021 Brandon Largeau, David Lafia-Monwoo
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,27 +23,43 @@
  */
 package fr.brandon.aoc.tp.algorithme_diffusion.impl;
 
-import java.util.Set;
-
 import fr.brandon.aoc.tp.algorithme_diffusion.api.AlgorithmeDiffusion;
-import fr.brandon.aoc.tp.canal.api.CapteurAsync;
+import fr.brandon.aoc.tp.canal.api.ObserverDeCapteurAsync;
+import fr.brandon.aoc.tp.capteur.api.Capteur;
+import java.util.Objects;
 
-public class DiffusionCausal implements AlgorithmeDiffusion
+/**
+ * DiffusionCausal est une class immutable.
+ *
+ * @author LARGEAU Brandon, LAFIA-MONWOO David
+ * @version 1
+ */
+public final class DiffusionCausal implements AlgorithmeDiffusion
 {
-    private Set<CapteurAsync> canaux;
+    private Capteur capteur;
 
     @Override
-    public void configure(Set<CapteurAsync> canaux)
+    public void semaphoreReleaseOnce()
     {
-        this.canaux = canaux;
+        // Ne fais rien sur cet algo
     }
 
     @Override
-    public void execute()
+    public void configure(Capteur capteur)
     {
+        Objects.requireNonNull(capteur);
+        this.capteur = capteur;
+    }
 
-        if (this.canaux != null)
+    @Override
+    public void execute() throws InterruptedException
+    {
+        Objects.requireNonNull(this.capteur);
+
+        for (ObserverDeCapteurAsync canal : this.capteur.getObservers())
         {
+            canal.setCapteur(this.capteur);
+            canal.update();
         }
     }
 }
